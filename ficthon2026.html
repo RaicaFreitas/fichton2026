@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ficthon 2026 — Avaliação ADS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c27;
+      --border: #2a2a3a;
+      --accent: #7c6af7;
+      --accent2: #f7c56a;
+      --text: #e8e8f0;
+      --muted: #7a7a99;
+      --success: #4ade80;
+      --error: #f87171;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1040 0%, #0a0a0f 60%);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 40px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(124,106,247,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-badge {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(124,106,247,0.12);
+      border: 1px solid rgba(124,106,247,0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+    header h1 span { color: var(--accent); }
+    header p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    /* ── Main layout ── */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    /* ── Form controls ── */
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    select, textarea {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color .2s;
+      appearance: none;
+    }
+    select:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+    select option { background: var(--surface2); }
+    textarea { resize: vertical; min-height: 80px; }
+
+    /* ── Criteria rows ── */
+    .criteria-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .criterion {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      transition: border-color .2s;
+    }
+    .criterion:focus-within { border-color: rgba(124,106,247,0.5); }
+
+    .criterion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .criterion-info { flex: 1; }
+    .criterion-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .criterion-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .criterion-range {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      background: rgba(124,106,247,0.1);
+      border: 1px solid rgba(124,106,247,0.2);
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* ── Score buttons ── */
+    .score-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .score-btn {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .score-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(124,106,247,0.1);
+    }
+    .score-btn.selected {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(124,106,247,0.4);
+    }
+
+    /* ── Total bar ── */
+    .total-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, rgba(124,106,247,0.1), rgba(247,197,106,0.07));
+      border: 1px solid rgba(124,106,247,0.3);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 20px;
+    }
+    .total-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .total-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--accent2);
+    }
+    .total-value span {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* ── Submit button ── */
+    #btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    #btn-submit:hover:not(:disabled) {
+      background: #9580ff;
+      box-shadow: 0 8px 24px rgba(124,106,247,0.4);
+      transform: translateY(-1px);
+    }
+    #btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0;
+      transition: all .3s;
+      pointer-events: none;
+      z-index: 999;
+      white-space: nowrap;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    #toast.success { border-color: var(--success); color: var(--success); }
+    #toast.error   { border-color: var(--error);   color: var(--error);   }
+
+    /* ── Config modal overlay ── */
+    #config-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+    #config-modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      width: 100%;
+      max-width: 480px;
+    }
+    #config-modal h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    #config-modal p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+    .field { margin-bottom: 16px; }
+    .field label { color: var(--text); margin-bottom: 8px; font-size: 13px; font-weight: 500; }
+    .field input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .field input:focus { border-color: var(--accent); }
+    #btn-save-config {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px;
+      background: var(--accent);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    #btn-save-config:hover { background: #9580ff; }
+
+    /* ── Config gear icon ── */
+    #btn-config {
+      position: fixed;
+      top: 20px; right: 20px;
+      width: 40px; height: 40px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      transition: border-color .2s;
+    }
+    #btn-config:hover { border-color: var(--accent); }
+    #btn-config svg { width: 18px; height: 18px; fill: var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- ── Config overlay ── -->
+<div id="config-overlay">
+  <div id="config-modal">
+    <h2>⚙️ Configurar Supabase</h2>
+    <p>Insira as credenciais do seu projeto Supabase. Você encontra em <strong>Project Settings → API</strong>.</p>
+    <div class="field">
+      <label>Project URL</label>
+      <input id="cfg-url" type="url" placeholder="https://xxxx.supabase.co" />
+    </div>
+    <div class="field">
+      <label>Anon Key</label>
+      <input id="cfg-key" type="text" placeholder="eyJhbGciOi..." />
+    </div>
+    <button id="btn-save-config">Conectar</button>
+  </div>
+</div>
+
+<!-- ── Config button ── -->
+<button id="btn-config" title="Configurações">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96a7.02 7.02 0 0 0-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.47.47 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+  </svg>
+</button>
+
+<header>
+  <div class="header-badge">ADS · Ficthon 2026</div>
+  <h1>Formulário de <span>Avaliação</span></h1>
+  <p>Preencha todos os critérios para cada grupo apresentado.</p>
+</header>
+
+<main>
+
+  <!-- Jurado + Grupo -->
+  <div class="card">
+    <div class="card-title">Identificação</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <div>
+        <label for="sel-avaliador">Jurado</label>
+        <select id="sel-avaliador">
+          <option value="">Selecione...</option>
+        </select>
+      </div>
+      <div>
+        <label for="sel-grupo">Grupo</label>
+        <select id="sel-grupo">
+          <option value="">Selecione...</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Critérios -->
+  <div class="card">
+    <div class="card-title">Critérios Avaliativos</div>
+    <div class="criteria-list" id="criteria-list"></div>
+  </div>
+
+  <!-- Observações -->
+  <div class="card">
+    <div class="card-title">Observações</div>
+    <textarea id="obs" placeholder="Comentários adicionais sobre a apresentação (opcional)..."></textarea>
+  </div>
+
+  <!-- Total -->
+  <div class="total-bar">
+    <div>
+      <div class="total-label">Pontuação Total</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:2px;">Máximo: 30 pontos</div>
+    </div>
+    <div class="total-value" id="total-display">0 <span>/ 30</span></div>
+  </div>
+
+  <button id="btn-submit" disabled>Enviar Avaliação</button>
+</main>
+
+<div id="toast"></div>
+
+<script>
+// ─── Dados fixos ADS ───────────────────────────────────────────────
+const AVALIADORES_ADS = [
+  { nome: 'João Forsetto' },
+  { nome: 'Adilson Lugli' },
+  { nome: 'Erinaldo Sanches Nascimento' },
+];
+
+const CRITERIOS = [
+  { key: 'abertura',       label: '1. Abertura',           desc: 'A abertura foi impactante?',                                                     min: 1, max: 3 },
+  { key: 'problema',       label: '2. Problema',            desc: 'O problema foi descrito de forma clara e objetiva?',                              min: 1, max: 5 },
+  { key: 'solucao_inovacao', label: '3. Solução / Inovação', desc: 'A solução apresentada é inovadora e viável?',                                   min: 1, max: 5 },
+  { key: 'mercado',        label: '4. Mercado',             desc: 'A equipe possui entendimento sobre o mercado que atua?',                          min: 1, max: 5 },
+  { key: 'equipe',         label: '5. Equipe',              desc: 'A equipe está bem dimensionada em relação às atribuições desenvolvidas?',         min: 1, max: 3 },
+  { key: 'concorrencia',   label: '6. Concorrência',        desc: 'A proposta apresentou vantagens competitivas em relação aos concorrentes?',       min: 1, max: 3 },
+  { key: 'visao_futuro',   label: '7. Visão de Futuro',     desc: 'A equipe possui metas bem definidas para os próximos anos?',                     min: 1, max: 3 },
+  { key: 'tempo',          label: '8. Tempo',               desc: 'A proposta foi apresentada em até 5 minutos?',                                   min: 1, max: 3 },
+];
+
+// ─── State ────────────────────────────────────────────────────────
+let supabase = null;
+let scores = {};
+let avaliadores = [];
+let grupos = [];
+
+// ─── Config modal ─────────────────────────────────────────────────
+const overlay  = document.getElementById('config-overlay');
+const btnSave  = document.getElementById('btn-save-config');
+const btnCfg   = document.getElementById('btn-config');
+
+function savedCreds() {
+  return { url: localStorage.getItem('sb_url'), key: localStorage.getItem('sb_key') };
+}
+
+async function initSupabase(url, key) {
+  const { createClient } = window.supabase;
+  supabase = createClient(url, key);
+  localStorage.setItem('sb_url', url);
+  localStorage.setItem('sb_key', key);
+  await loadData();
+  overlay.style.display = 'none';
+}
+
+btnSave.addEventListener('click', async () => {
+  const url = document.getElementById('cfg-url').value.trim();
+  const key = document.getElementById('cfg-key').value.trim();
+  if (!url || !key) return showToast('Preencha a URL e a Anon Key.', 'error');
+  await initSupabase(url, key);
+});
+
+btnCfg.addEventListener('click', () => {
+  overlay.style.display = 'flex';
+});
+
+// ─── Load data from Supabase ───────────────────────────────────────
+async function loadData() {
+  // avaliadores
+  const { data: avs } = await supabase.from('avaliadores').select('id, nome');
+  // Se a tabela ainda não tiver dados, usa os fixos
+  if (!avs || avs.length === 0) {
+    avaliadores = AVALIADORES_ADS.map((a, i) => ({ id: i + 1, nome: a.nome }));
+  } else {
+    avaliadores = avs;
+  }
+
+  // grupos
+  const { data: grps } = await supabase.from('grupos').select('id, nome_grupo');
+  grupos = grps || [];
+
+  renderSelects();
+}
+
+function renderSelects() {
+  const selAv = document.getElementById('sel-avaliador');
+  selAv.innerHTML = '<option value="">Selecione...</option>';
+  avaliadores.forEach(a => {
+    const o = document.createElement('option');
+    o.value = a.id;
+    o.textContent = a.nome;
+    selAv.appendChild(o);
+  });
+
+  const selGp = document.getElementById('sel-grupo');
+  selGp.innerHTML = '<option value="">Selecione...</option>';
+  grupos.forEach(g => {
+    const o = document.createElement('option');
+    o.value = g.id;
+    o.textContent = g.nome_grupo;
+    selGp.appendChild(o);
+  });
+}
+
+// ─── Render criteria ──────────────────────────────────────────────
+function renderCriteria() {
+  const list = document.getElementById('criteria-list');
+  list.innerHTML = '';
+  CRITERIOS.forEach(c => {
+    const buttons = [];
+    for (let v = c.min; v <= c.max; v++) {
+      buttons.push(`<button class="score-btn" data-key="${c.key}" data-val="${v}">${v}</button>`);
+    }
+    list.innerHTML += `
+      <div class="criterion">
+        <div class="criterion-header">
+          <div class="criterion-info">
+            <div class="criterion-name">${c.label}</div>
+            <div class="criterion-desc">${c.desc}</div>
+          </div>
+          <div class="criterion-range">${c.min}–${c.max}</div>
+        </div>
+        <div class="score-btns">${buttons.join('')}</div>
+      </div>`;
+  });
+
+  list.addEventListener('click', e => {
+    const btn = e.target.closest('.score-btn');
+    if (!btn) return;
+    const key = btn.dataset.key;
+    const val = parseInt(btn.dataset.val);
+    scores[key] = val;
+    // highlight
+    list.querySelectorAll(`.score-btn[data-key="${key}"]`).forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    updateTotal();
+  });
+}
+
+function updateTotal() {
+  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  document.getElementById('total-display').innerHTML = `${total} <span>/ 30</span>`;
+  checkSubmitReady();
+}
+
+function checkSubmitReady() {
+  const allScored = CRITERIOS.every(c => scores[c.key] !== undefined);
+  const hasAv = document.getElementById('sel-avaliador').value;
+  const hasGp = document.getElementById('sel-grupo').value;
+  document.getElementById('btn-submit').disabled = !(allScored && hasAv && hasGp);
+}
+
+document.getElementById('sel-avaliador').addEventListener('change', checkSubmitReady);
+document.getElementById('sel-grupo').addEventListener('change', checkSubmitReady);
+
+// ─── Submit ───────────────────────────────────────────────────────
+document.getElementById('btn-submit').addEventListener('click', async () => {
+  const avaliador_id = parseInt(document.getElementById('sel-avaliador').value);
+  const grupo_id     = parseInt(document.getElementById('sel-grupo').value);
+  const obs          = document.getElementById('obs').value.trim();
+  const nota_final   = Object.values(scores).reduce((a, b) => a + b, 0);
+
+  const payload = {
+    avaliador_id,
+    grupo_id,
+    abertura:       scores.abertura,
+    problema:       scores.problema,
+    solucao_inovacao: scores.solucao_inovacao,
+    mercado:        scores.mercado,
+    equipe:         scores.equipe,
+    concorrencia:   scores.concorrencia,
+    visao_futuro:   scores.visao_futuro,
+    tempo:          scores.tempo,
+    nota_final,
+    observacoes:    obs || null,
+  };
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  const { error } = await supabase.from('avaliacoes').insert(payload);
+
+  if (error) {
+    showToast('Erro ao enviar: ' + error.message, 'error');
+    btn.disabled = false;
+    btn.textContent = 'Enviar Avaliação';
+  } else {
+    showToast('✅ Avaliação enviada com sucesso!', 'success');
+    resetForm();
+    btn.textContent = 'Enviar Avaliação';
+  }
+});
+
+function resetForm() {
+  scores = {};
+  document.getElementById('sel-avaliador').value = '';
+  document.getElementById('sel-grupo').value = '';
+  document.getElementById('obs').value = '';
+  document.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
+  updateTotal();
+}
+
+// ─── Toast ────────────────────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `show ${type}`;
+  setTimeout(() => { t.className = ''; }, 3500);
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────
+renderCriteria();
+
+const { url, key } = savedCreds();
+if (url && key) {
+  document.getElementById('cfg-url').value = url;
+  document.getElementById('cfg-key').value = key;
+  initSupabase(url, key);
+} else {
+  overlay.style.display = 'flex';
+}
+</script>
+</body>
+</html>
