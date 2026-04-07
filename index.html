@@ -560,8 +560,8 @@
 <div id="toast"></div>
 
 <script>
-// ─── Login ────────────────────────────────────────────────────────
-const SENHA_FIXA = 'ficthon2026'; // 👈 altere aqui a senha
+
+const SENHA_FIXA = 'ficthon2026'; 
 let juradoLogado = null;
 
 const loginScreen = document.getElementById('login-screen');
@@ -677,7 +677,6 @@ function renderSelects() {
     selAv.appendChild(o);
   });
 
-  // ✅ CORREÇÃO: restaura o jurado logado após reconstruir o select
   if (juradoLogado) {
     selAv.value = juradoLogado;
     selAv.disabled = true;
