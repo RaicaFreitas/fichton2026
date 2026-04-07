@@ -9,92 +9,367 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --deep:#06354A; --navy:#154257; --cyan:#02C5EF; --orange:#E89E68;
-  --orange-dark:#c47d45; --orange-light:#fdf3ea; --white:#ffffff;
-  --off-white:#f4f8fa; --gray-100:#eaf2f5; --gray-200:#d0e0e8;
-  --gray-400:#8aacba; --gray-600:#4a6a7a; --gray-800:#1a3040;
-  --success:#0f9e6a; --success-bg:#e0f7ee; --error:#c0021a;
-  --error-bg:#fdecea; --radius-sm:6px; --radius:10px; --radius-lg:14px;
-  --shadow:0 2px 12px rgba(6,53,74,0.08); --shadow-lg:0 8px 32px rgba(6,53,74,0.16);
+  --deep:#06354A;
+  --navy:#154257;
+  --cyan:#02C5EF;
+  --orange:#E89E68;
+  --orange-dark:#c47d45;
+  --orange-light:#fdf3ea;
+  --white:#ffffff;
+  --off-white:#f4f8fa;
+  --gray-100:#eaf2f5;
+  --gray-200:#d0e0e8;
+  --gray-400:#8aacba;
+  --gray-600:#4a6a7a;
+  --gray-800:#1a3040;
+  --success:#0f9e6a;
+  --success-bg:#e0f7ee;
+  --error:#c0021a;
+  --error-bg:#fdecea;
+  --radius-sm:6px;
+  --radius:10px;
+  --radius-lg:14px;
+  --shadow:0 2px 12px rgba(6,53,74,0.08);
+  --shadow-lg:0 8px 32px rgba(6,53,74,0.16);
 }
 
-body{ font-family:'Barlow',sans-serif; background:var(--off-white); color:var(--gray-800); min-height:100vh; }
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--off-white);
+  color:var(--gray-800);
+  min-height:100vh;
+}
 
-header{ background:var(--deep); position:relative; overflow:hidden; }
-header::after{ content:''; position:absolute; bottom:0;left:0;right:0; height:3px; background:linear-gradient(90deg, var(--cyan) 0%, var(--orange) 50%, var(--cyan) 100%); }
-.header-top{ padding:20px 32px 18px; display:flex; align-items:center; gap:18px; }
-.logo-mark{ width:48px;height:48px; background:var(--cyan); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.logo-mark span{ font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:800; letter-spacing:2px; color:var(--deep); }
-.header-title h1{ font-family:'Barlow Condensed',sans-serif; font-size:clamp(20px,3.5vw,30px); font-weight:800; color:var(--white); letter-spacing:0.5px; line-height:1.1; }
-.header-title p{ font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+header{
+  background:var(--deep);
+  position:relative;
+  overflow:hidden;
+}
+header::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg, var(--cyan) 0%, var(--orange) 50%, var(--cyan) 100%);
+}
+.header-top{
+  padding:20px 32px 18px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+.logo-mark{
+  width:48px;height:48px;
+  background:var(--cyan);
+  border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.logo-mark span{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:800;letter-spacing:2px;
+  color:var(--deep);
+}
+.header-title h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(20px,3.5vw,30px);
+  font-weight:800;
+  color:var(--white);
+  letter-spacing:0.5px;
+  line-height:1.1;
+}
+.header-title p{
+  font-size:12px;font-weight:400;
+  color:rgba(255,255,255,0.55);
+  margin-top:2px;
+  letter-spacing:0.3px;
+}
 
-.tab-bar{ display:flex; padding:0 32px; border-top:1px solid rgba(255,255,255,0.1); }
-.tab-btn{ padding:11px 22px; font-size:13px; font-weight:600; color:rgba(255,255,255,0.5); background:transparent; border:none; cursor:pointer; border-bottom:3px solid transparent; transition:all .2s; position:relative; top:3px; }
-.tab-btn.active{ color:var(--cyan); border-bottom-color:var(--cyan); }
+.tab-bar{
+  display:flex;
+  padding:0 32px;
+  gap:0;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+.tab-btn{
+  padding:11px 22px;
+  font-family:'Barlow',sans-serif;
+  font-size:13px;font-weight:600;
+  color:rgba(255,255,255,0.5);
+  background:transparent;border:none;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  transition:all .2s;
+  letter-spacing:0.2px;
+  position:relative;
+  top:3px;
+}
+.tab-btn:hover:not(.active){color:rgba(255,255,255,0.8)}
+.tab-btn.active{
+  color:var(--cyan);
+  border-bottom-color:var(--cyan);
+}
 
-main{ max-width:720px; margin:0 auto; padding:28px 20px 80px; }
+main{max-width:720px;margin:0 auto;padding:28px 20px 80px}
 
-.card{ background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:22px; margin-bottom:16px; box-shadow:var(--shadow); }
-.card-title{ font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gray-400); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-.card-title::after{ content:''; flex:1; height:1px; background:var(--gray-200); }
+.card{
+  background:var(--white);
+  border:1px solid var(--gray-200);
+  border-radius:var(--radius-lg);
+  padding:22px;
+  margin-bottom:16px;
+  box-shadow:var(--shadow);
+}
+.card-title{
+  font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--gray-400);
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-title::after{
+  content:'';flex:1;
+  height:1px;background:var(--gray-200);
+}
 
-label{ display:block; font-size:12px; font-weight:600; color:var(--gray-600); margin-bottom:5px; text-transform:uppercase; }
-select,textarea,input[type=number],input[type=text],input[type=url]{ width:100%; background:var(--off-white); border:1.5px solid var(--gray-200); border-radius:var(--radius-sm); color:var(--gray-800); font-family:'Barlow',sans-serif; font-size:14px; padding:9px 12px; outline:none; }
-select:focus,input:focus,textarea:focus{ border-color:var(--cyan); background:var(--white); box-shadow:0 0 0 3px rgba(2,197,239,0.12); }
+label{
+  display:block;font-size:12px;font-weight:600;
+  color:var(--gray-600);margin-bottom:5px;
+  letter-spacing:0.3px;text-transform:uppercase;
+}
+select,textarea,input[type=number],input[type=text],input[type=url]{
+  width:100%;
+  background:var(--off-white);
+  border:1.5px solid var(--gray-200);
+  border-radius:var(--radius-sm);
+  color:var(--gray-800);
+  font-family:'Barlow',sans-serif;
+  font-size:14px;font-weight:500;
+  padding:9px 12px;
+  outline:none;
+  transition:border-color .15s, box-shadow .15s;
+  appearance:none;
+}
+select:focus,textarea:focus,input:focus{
+  border-color:var(--cyan);
+  background:var(--white);
+  box-shadow:0 0 0 3px rgba(2,197,239,0.12);
+}
 
-.criteria-list{ display:flex; flex-direction:column; gap:10px; }
-.criterion{ background:var(--off-white); border:1.5px solid var(--gray-200); border-radius:var(--radius); padding:16px; transition: border-color .2s; }
-.criterion:focus-within{ border-color: var(--cyan); }
+.criteria-list{display:flex;flex-direction:column;gap:10px}
 
-.criterion-header{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
-.criterion-name{ font-size:15px; font-weight:700; color:var(--navy); }
-.criterion-desc{ font-size:13px; color:var(--gray-600); line-height:1.4; margin-top:2px; }
+.criterion{
+  background:var(--off-white);
+  border:1.5px solid var(--gray-200);
+  border-radius:var(--radius);
+  padding:14px 16px;
+}
 
-.extra-items{ margin-top:10px; display:flex; flex-direction:column; gap:4px; }
-.extra-item{ font-size:11.5px; color:var(--orange-dark); background:var(--orange-light); border-left:3px solid var(--orange); padding:6px 10px; border-radius:0 4px 4px 0; font-weight:500; }
+.criterion-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-start;gap:12px;margin-bottom:10px;
+}
+.criterion-name{
+  font-size:14px;font-weight:700;
+  color:var(--navy);margin-bottom:2px;
+}
+.criterion-desc{font-size:12px;color:var(--gray-600);line-height:1.5}
 
-.badge-range{ font-size:11px; font-weight:700; color:var(--orange-dark); background:var(--orange-light); border:1.5px solid rgba(232,158,104,0.35); padding:3px 10px; border-radius:20px; white-space:nowrap; }
+.badge-range{
+  font-size:11px;font-weight:700;
+  color:var(--orange-dark);
+  background:var(--orange-light);
+  border:1.5px solid rgba(232,158,104,0.35);
+  padding:3px 10px;border-radius:20px;
+  white-space:nowrap;
+}
 
-.score-wrap{ display:flex; align-items:center; gap:12px; margin-top:12px; }
-.score-input{ width:90px!important; font-size:22px!important; font-weight:800!important; text-align:center!important; padding:8px!important; border:2px solid var(--gray-200)!important; border-radius:var(--radius-sm)!important; background: var(--white)!important;}
-.score-input.valid{ border-color:var(--success)!important; color:var(--success)!important; }
-.score-hint{ font-size:12px; color:var(--gray-400); font-weight:500; }
+.score-wrap{display:flex;align-items:center;gap:10px}
+.score-input{
+  width:88px!important;
+  font-size:20px!important;
+  font-weight:700!important;
+  text-align:center!important;
+  padding:6px 8px!important;
+  background:var(--white)!important;
+  border:2px solid var(--gray-200)!important;
+  border-radius:var(--radius-sm)!important;
+  color:var(--navy)!important;
+}
+.score-input.valid{border-color:var(--success)!important;color:var(--success)!important}
+.score-input.invalid{border-color:var(--error)!important}
+.score-hint{font-size:12px;color:var(--gray-400);font-weight:500}
 
-.total-bar{ background:var(--white); border:1.5px solid var(--navy); border-radius:var(--radius-lg); padding:16px 22px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; box-shadow:var(--shadow); }
-.total-label{ font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gray-600); }
-.total-value{ font-family:'Barlow Condensed',sans-serif; font-size:38px; font-weight:800; color:var(--navy); }
-.total-value span{ font-size:15px; color:var(--gray-400); font-family:'Barlow',sans-serif; }
+.total-bar{
+  background:var(--white);
+  border:1.5px solid var(--navy);
+  border-radius:var(--radius-lg);
+  padding:16px 22px;
+  margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow);
+}
+.total-label{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gray-600);
+}
+.total-sub{font-size:12px;color:var(--gray-400);margin-top:2px;font-weight:500}
+.total-value{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:38px;font-weight:800;color:var(--navy);
+}
+.total-value span{font-size:15px;color:var(--gray-400);font-weight:600;font-family:'Barlow',sans-serif}
 
-.desconto-notice{ background:var(--orange-light); border:1.5px solid rgba(232,158,104,0.45); border-radius:var(--radius); padding:12px 16px; margin-bottom:14px; display:none; align-items:center; justify-content:space-between; }
-.desconto-notice.show{ display:flex; }
+.desconto-notice{
+  background:var(--orange-light);
+  border:1.5px solid rgba(232,158,104,0.45);
+  border-radius:var(--radius);
+  padding:12px 16px;margin-bottom:14px;
+  display:none;
+  align-items:center;justify-content:space-between;
+}
+.desconto-notice.show{display:flex}
+.desconto-notice-label{
+  font-size:12px;font-weight:600;color:var(--orange-dark);
+}
+.desconto-notice-val{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px;font-weight:800;color:var(--orange-dark);
+}
 
-.btn-primary{ width:100%; padding:14px; background:var(--navy); border:none; border-radius:var(--radius); color:var(--white); font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; text-transform:uppercase; cursor:pointer; }
-.btn-primary:disabled{ opacity:0.3; cursor:not-allowed; }
-.btn-primary.orange{ background:var(--orange); color:var(--deep); }
-.btn-primary.cyan{ background:var(--cyan); color:var(--deep); }
+.btn-primary{
+  width:100%;padding:13px;
+  background:var(--navy);
+  border:none;border-radius:var(--radius);
+  color:var(--white);
+  font-family:'Barlow',sans-serif;
+  font-size:14px;font-weight:700;
+  letter-spacing:0.5px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+}
+.btn-primary:hover:not(:disabled){
+  background:var(--deep);
+  box-shadow:0 4px 16px rgba(6,53,74,0.3);
+  transform:translateY(-1px);
+}
+.btn-primary:disabled{opacity:0.35;cursor:not-allowed}
+.btn-primary.cyan{background:var(--cyan);color:var(--deep);}
+.btn-primary.orange{background:var(--orange);color:var(--deep);}
 
-#config-overlay{ position:fixed; inset:0; background:rgba(6,53,74,0.7); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:100; padding:20px; }
-.config-modal{ background:var(--white); border-radius:var(--radius-lg); padding:32px; width:100%; max-width:460px; }
+.info-box{
+  background:#e8f6fa;
+  border:1.5px solid rgba(2,197,239,0.25);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;font-size:13px;
+  color:var(--navy);font-weight:500;
+  margin-bottom:16px;line-height:1.5;
+}
 
-#toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--navy); border-radius:var(--radius); padding:12px 24px; color:var(--white); font-weight:600; opacity:0; transition:0.3s; z-index:999; }
-#toast.show{ opacity:1; }
-#toast.success{ background:var(--success); }
-#toast.error{ background:var(--error); }
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+
+#config-overlay{
+  position:fixed;inset:0;
+  background:rgba(6,53,74,0.65);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:100;padding:20px;
+}
+.config-modal{
+  background:var(--white);
+  border-radius:var(--radius-lg);
+  padding:32px;
+  width:100%;max-width:460px;
+}
+
+#btn-config{
+  position:fixed;top:16px;right:16px;
+  width:38px;height:38px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:50;
+}
+#btn-config svg{width:16px;height:16px;fill:rgba(255,255,255,0.65)}
+
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+#toast{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:var(--navy);
+  border-radius:var(--radius);
+  padding:12px 22px;
+  font-size:13px;font-weight:600;color:var(--white);
+  opacity:0;transition:all .3s;
+  pointer-events:none;z-index:999;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.success{background:var(--success)}
+#toast.error{background:var(--error)}
+
+.grupo-row{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  padding:10px 14px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--gray-200);
+  margin-bottom:8px;
+  font-size:13px;
+  background:var(--off-white);
+}
+.grupo-row .gname{font-weight:600;color:var(--navy);}
+.desc-tag{
+  font-size:11px;font-weight:700;
+  background:var(--orange-light);
+  color:var(--orange-dark);
+  padding:2px 8px;border-radius:20px;
+}
+.btn-sm{
+  padding:5px 12px;
+  font-size:12px;font-weight:600;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--gray-200);
+  background:var(--white);
+  cursor:pointer;
+}
+.btn-sm.danger{color:var(--error)}
+
+.nota-breakdown{
+  background:var(--off-white);
+  border:1px solid var(--gray-200);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;
+  margin-top:10px;
+  font-size:12px;
+}
+.nota-row{display:flex;justify-content:space-between;padding:2px 0;color:var(--gray-600)}
+.nota-row.final{
+  border-top:1px solid var(--gray-200);
+  margin-top:4px;padding-top:6px;
+  font-weight:700;color:var(--navy);font-size:13px;
+}
 </style>
 </head>
 <body>
 
-<button id="btn-config" style="position:fixed; top:16px; right:16px; z-index:50; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:50%; width:38px; height:38px; cursor:pointer; display:flex; align-items:center; justify-content:center;">
-  <svg viewBox="0 0 24 24" style="width:18px; fill:white;"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.37-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.47.47 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+<button id="btn-config" title="Configurar Supabase">
+  <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.37-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.47.47 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
 </button>
 
 <div id="config-overlay">
   <div class="config-modal">
-    <h2 style="font-family:'Barlow Condensed'; margin-bottom:15px;">⚙ Configurar Conexão</h2>
-    <label>Supabase URL</label>
-    <input id="cfg-url" type="url" style="margin-bottom:10px;">
-    <label>Anon Key</label>
-    <input id="cfg-key" type="text" style="margin-bottom:20px;">
+    <h2 style="font-family:'Barlow Condensed', sans-serif; margin-bottom:10px;">⚙ Conectar Supabase</h2>
+    <div class="field" style="margin-bottom:10px;">
+      <label>Project URL</label>
+      <input id="cfg-url" type="url" placeholder="https://xxxx.supabase.co"/>
+    </div>
+    <div class="field" style="margin-bottom:15px;">
+      <label>Anon Key</label>
+      <input id="cfg-key" type="text" placeholder="eyJhbGciOi..."/>
+    </div>
     <button class="btn-primary cyan" id="btn-save-config">Conectar</button>
   </div>
 </div>
@@ -104,7 +379,7 @@ select:focus,input:focus,textarea:focus{ border-color:var(--cyan); background:va
     <div class="logo-mark"><span>ADS</span></div>
     <div class="header-title">
       <h1>Ficthon 2026 — Avaliação</h1>
-      <p>SENAC · Sistema de Notas em Tempo Real</p>
+      <p>Sistema de avaliação de projetos · SENAC</p>
     </div>
   </div>
   <div class="tab-bar">
@@ -115,12 +390,19 @@ select:focus,input:focus,textarea:focus{ border-color:var(--cyan); background:va
 </header>
 
 <main>
+
   <div class="tab-panel active" id="tab-avaliacao">
     <div class="card">
       <div class="card-title">Identificação</div>
       <div class="grid2">
-        <div><label>Jurado</label><select id="sel-avaliador"><option value="">Selecione...</option></select></div>
-        <div><label>Grupo</label><select id="sel-grupo"><option value="">Selecione...</option></select></div>
+        <div>
+          <label>Jurado</label>
+          <select id="sel-avaliador"><option value="">Selecione...</option></select>
+        </div>
+        <div>
+          <label>Grupo</label>
+          <select id="sel-grupo"><option value="">Selecione...</option></select>
+        </div>
       </div>
     </div>
 
@@ -131,80 +413,103 @@ select:focus,input:focus,textarea:focus{ border-color:var(--cyan); background:va
 
     <div class="card">
       <div class="card-title">Observações</div>
-      <textarea id="obs" placeholder="Destaques positivos ou pontos de melhoria..."></textarea>
+      <textarea id="obs" placeholder="Comentários adicionais..."></textarea>
     </div>
 
     <div class="desconto-notice" id="desconto-notice">
-      <div style="font-size:12px; font-weight:600; color:var(--orange-dark);">Desconto de tempo aplicado pela coordenação</div>
+      <div class="desconto-notice-label">Desconto de tempo aplicado</div>
       <div class="desconto-notice-val" id="desconto-val-display">-0,0 pt</div>
     </div>
 
     <div class="total-bar">
-      <div><div class="total-label">Pontuação Final</div></div>
+      <div>
+        <div class="total-label">Pontuação Final</div>
+        <div class="total-sub" id="total-sub">Soma dos critérios menos desconto</div>
+      </div>
       <div class="total-value" id="total-display">0 <span>/ 30</span></div>
     </div>
+
     <button class="btn-primary" id="btn-submit" disabled>Enviar Avaliação</button>
   </div>
 
   <div class="tab-panel" id="tab-coordenacao">
-    <div class="card">
-      <div class="card-title">Lançar Desconto Decimal</div>
-      <div class="grid2" style="margin-bottom:15px;">
-        <div><label>Grupo</label><select id="input-desc-grupo"><option value="">Selecione...</option></select></div>
-        <div><label>Pontos a Descontar</label><input type="number" id="input-desc-valor" step="0.1" min="0" placeholder="0.0"></div>
-      </div>
-      <button class="btn-primary orange" onclick="enviarDescontoManual()">Registrar Desconto</button>
+    <div class="info-box">
+      Insira manualmente o desconto em pontos (ex: 0.1, 0.2) para o grupo. Este valor será subtraído da nota final de todos os jurados para este grupo.
     </div>
+
+    <div class="card">
+      <div class="card-title">Registrar Desconto</div>
+      <div class="grid2" style="margin-bottom:15px;">
+        <div>
+          <label>Grupo</label>
+          <select id="input-desc-grupo"><option value="">Selecione o grupo...</option></select>
+        </div>
+        <div>
+          <label>Valor do Desconto (pts)</label>
+          <input type="number" id="input-desc-valor" step="0.1" min="0" placeholder="0.0">
+        </div>
+      </div>
+      <button class="btn-primary orange" id="btn-enviar-desconto" onclick="enviarDescontoManual()">
+        Registrar Desconto
+      </button>
+    </div>
+
     <div class="card">
       <div class="card-title">Descontos Registrados</div>
-      <div id="lista-descontos"></div>
+      <div id="lista-descontos">
+        <div style="color:var(--gray-400); text-align:center; padding:20px;">Carregando...</div>
+      </div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-resultados">
-    <div style="margin-bottom:15px; display:flex; gap:10px;">
-      <select id="res-grupo" style="flex:1;"><option value="">Todos os Grupos</option></select>
-      <button class="btn-primary" style="width:auto; padding:0 20px;" onclick="carregarResultados()">Atualizar</button>
+    <div style="margin-bottom:12px;display:flex;gap:10px">
+      <select id="res-grupo" style="flex:1"><option value="">Todos os grupos</option></select>
+      <button class="btn-primary" style="width:auto;padding:9px 20px;" onclick="carregarResultados()">Atualizar</button>
     </div>
     <div id="lista-resultados"></div>
   </div>
+
 </main>
 
 <div id="toast"></div>
 
 <script>
-// DADOS COMPLETOS COM COMENTÁRIOS E EXTRAS
+// CONFIGURAÇÕES E ESTADO
 const CRITERIOS = [
-  { key:'abertura', label:'1. Abertura', min:1, max:3, desc:'A abertura foi impactante?' },
-  { key:'problema', label:'2. Problema', min:1, max:5, desc:'O problema foi descrito de forma clara e objetiva?' },
-  { key:'solucao_inovacao', label:'3. Solução / Inovação', min:1, max:5, desc:'A solução apresentada é inovadora?', 
-    extra:['Nota 1-2 — Solução pouco clara ou sem inovação.', 'Nota 3-4 — Solução adequada, mas com diferenciação limitada.', 'Nota 5 — Solução inovadora, viável e alinhada ao desafio.'] 
-  },
-  { key:'mercado', label:'4. Mercado', min:1, max:5, desc:'A equipe possui entendimento sobre o mercado que atua?' },
-  { key:'equipe', label:'5. Equipe', min:1, max:3, desc:'A equipe está bem dimensionada em relação às atribuições desenvolvidas?' },
-  { key:'concorrencia', label:'6. Concorrência', min:1, max:3, desc:'A proposta apresentou vantagens competitivas em relação aos concorrentes?' },
-  { key:'visao_futuro', label:'7. Visão de Futuro', min:1, max:3, desc:'A equipe possui metas bem definidas para os próximos anos?' },
-  { key:'tempo', label:'8. Tempo', min:1, max:3, desc:'A proposta foi apresentada em até 5 minutos?' },
+  { key:'abertura', label:'1. Abertura', min:1, max:3, desc:'Impacto inicial' },
+  { key:'problema', label:'2. Problema', min:1, max:5, desc:'Clareza do problema' },
+  { key:'solucao_inovacao', label:'3. Solução', min:1, max:5, desc:'Inovação e viabilidade' },
+  { key:'mercado', label:'4. Mercado', min:1, max:5, desc:'Entendimento do público' },
+  { key:'equipe', label:'5. Equipe', min:1, max:3, desc:'Dimensionamento' },
+  { key:'concorrencia', label:'6. Concorrência', min:1, max:3, desc:'Vantagem competitiva' },
+  { key:'visao_futuro', label:'7. Visão', min:1, max:3, desc:'Metas futuras' },
+  { key:'tempo', label:'8. Tempo', min:1, max:3, desc:'Uso dos 5 minutos' },
 ];
 
 let supabaseClient = null;
 let scores = {};
 let grupos = [];
-let descontoAtual = { valor: 0 };
+let descontoAtual = { grupo_id: null, valor: 0 };
 
-// BOOT E CONFIG
-document.getElementById('btn-save-config').onclick = async () => {
-  const url = document.getElementById('cfg-url').value;
-  const key = document.getElementById('cfg-key').value;
-  supabaseClient = window.supabase.createClient(url, key);
+// INICIALIZAÇÃO SUPABASE
+document.getElementById('btn-config').addEventListener('click', () => document.getElementById('config-overlay').style.display = 'flex');
+document.getElementById('btn-save-config').addEventListener('click', async () => {
+  const url = document.getElementById('cfg-url').value.trim();
+  const key = document.getElementById('cfg-key').value.trim();
+  if (!url || !key) return showToast('Preencha os campos.', 'error');
+  
+  const { createClient } = window.supabase;
+  supabaseClient = createClient(url, key);
   localStorage.setItem('sb_url', url); localStorage.setItem('sb_key', key);
   await loadData();
   document.getElementById('config-overlay').style.display = 'none';
   showToast('Conectado!', 'success');
-};
+});
 
 async function loadData() {
-  const { data: avs } = await supabaseClient.from('Avaliadores').select('*').order('nome');
+  if(!supabaseClient) return;
+  const { data: avs } = await supabaseClient.from('Avaliadores').select('id, nome').order('nome');
   const selAv = document.getElementById('sel-avaliador');
   selAv.innerHTML = '<option value="">Selecione...</option>';
   avs?.forEach(a => selAv.add(new Option(a.nome, a.id)));
@@ -212,47 +517,36 @@ async function loadData() {
   const { data: gps } = await supabaseClient.from('grupos').select('*').order('nome_grupo');
   grupos = gps || [];
   ['sel-grupo', 'input-desc-grupo', 'res-grupo'].forEach(id => {
-    const s = document.getElementById(id);
-    s.innerHTML = id === 'res-grupo' ? '<option value="">Todos</option>' : '<option value="">Selecione...</option>';
-    grupos.forEach(g => s.add(new Option(g.nome_grupo, g.id)));
+    const sel = document.getElementById(id);
+    sel.innerHTML = id === 'res-grupo' ? '<option value="">Todos</option>' : '<option value="">Selecione...</option>';
+    grupos.forEach(g => sel.add(new Option(g.nome_grupo, g.id)));
   });
 }
 
-// RENDERIZAR CRITÉRIOS (RESTAURADO COM COMENTÁRIOS)
+// LOGICA AVALIAÇÃO
 function renderCriteria() {
   const list = document.getElementById('criteria-list');
-  list.innerHTML = '';
   CRITERIOS.forEach(c => {
     const div = document.createElement('div');
     div.className = 'criterion';
-    
-    // Constrói HTML do Extra se existir
-    const extraHtml = c.extra ? `<div class="extra-items">${c.extra.map(e => `<div class="extra-item">• ${e}</div>`).join('')}</div>` : '';
-
     div.innerHTML = `
       <div class="criterion-header">
-        <div>
-          <div class="criterion-name">${c.label}</div>
-          <div class="criterion-desc">${c.desc}</div>
-          ${extraHtml}
-        </div>
+        <div><div class="criterion-name">${c.label}</div><div class="criterion-desc">${c.desc}</div></div>
         <div class="badge-range">${c.min}-${c.max} pts</div>
       </div>
-      <div class="score-wrap">
-        <input class="score-input" type="number" min="${c.min}" max="${c.max}" data-key="${c.key}" placeholder="${c.min}">
-        <span class="score-hint">Inteiro · de ${c.min} a ${c.max}</span>
-      </div>`;
+      <input class="score-input" type="number" min="${c.min}" max="${c.max}" data-key="${c.key}">`;
     list.appendChild(div);
   });
 
   list.addEventListener('input', e => {
-    const val = Math.round(parseFloat(e.target.value));
-    const key = e.target.dataset.key;
-    const c = CRITERIOS.find(x => x.key === key);
-    if(val >= c.min && val <= c.max) {
-      scores[key] = val; e.target.classList.add('valid');
+    const inp = e.target;
+    const val = Math.round(parseFloat(inp.value));
+    const key = inp.dataset.key;
+    const crit = CRITERIOS.find(c => c.key === key);
+    if(val >= crit.min && val <= crit.max) {
+      scores[key] = val; inp.classList.add('valid');
     } else {
-      delete scores[key]; e.target.classList.remove('valid');
+      delete scores[key]; inp.classList.remove('valid');
     }
     updateTotal();
   });
@@ -265,73 +559,102 @@ function updateTotal() {
   document.getElementById('btn-submit').disabled = !(Object.keys(scores).length === 8 && document.getElementById('sel-grupo').value && document.getElementById('sel-avaliador').value);
 }
 
-// DESCONTOS
-document.getElementById('sel-grupo').onchange = async (e) => {
-  const { data } = await supabaseClient.from('descontos_tempo').select('desconto').eq('grupo_id', e.target.value).order('created_at', {ascending:false}).limit(1);
-  descontoAtual.valor = data?.[0]?.desconto || 0;
+document.getElementById('sel-grupo').addEventListener('change', async (e) => {
+  const gid = e.target.value;
+  if(!gid) { descontoAtual = { valor: 0 }; }
+  else {
+    const { data } = await supabaseClient.from('descontos_tempo').select('desconto').eq('grupo_id', gid).order('created_at', {ascending:false}).limit(1);
+    descontoAtual = { grupo_id: gid, valor: data?.[0]?.desconto || 0 };
+  }
   document.getElementById('desconto-notice').classList.toggle('show', descontoAtual.valor > 0);
   document.getElementById('desconto-val-display').textContent = `-${descontoAtual.valor.toFixed(1).replace('.',',')} pt`;
   updateTotal();
-};
+});
 
+document.getElementById('btn-submit').addEventListener('click', async () => {
+  const payload = {
+    avaliador_id: parseInt(document.getElementById('sel-avaliador').value),
+    grupo_id: parseInt(document.getElementById('sel-grupo').value),
+    ...scores,
+    observacoes: document.getElementById('obs').value,
+    nota_final: Math.max(0, Object.values(scores).reduce((a,b)=>a+b,0) - (descontoAtual.valor || 0))
+  };
+  const { error } = await supabaseClient.from('avaliacoes').insert(payload);
+  if(error) showToast(error.message, 'error');
+  else { showToast('Sucesso!', 'success'); location.reload(); }
+});
+
+// LOGICA COORDENAÇÃO (MANUAL)
 async function enviarDescontoManual() {
   const gid = document.getElementById('input-desc-grupo').value;
-  const val = parseFloat(document.getElementById('input-desc-valor').value);
-  await supabaseClient.from('descontos_tempo').insert({ grupo_id: gid, desconto: val, registrado_por: 'Coordenação' });
-  showToast('Desconto Salvo!'); carregarDescontos();
+  const valor = parseFloat(document.getElementById('input-desc-valor').value);
+  if(!gid || isNaN(valor)) return showToast('Selecione grupo e valor.', 'error');
+
+  const { error } = await supabaseClient.from('descontos_tempo').insert({
+    grupo_id: parseInt(gid),
+    desconto: valor,
+    registrado_por: 'Coordenação'
+  });
+
+  if(error) showToast(error.message, 'error');
+  else { showToast('Desconto registrado!', 'success'); carregarDescontos(); }
 }
 
 async function carregarDescontos() {
   const { data } = await supabaseClient.from('descontos_tempo').select('*, grupos(nome_grupo)').order('created_at', {ascending:false});
-  document.getElementById('lista-descontos').innerHTML = data?.map(d => `
-    <div class="grupo-row" style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee;">
-      <strong>${d.grupos?.nome_grupo}</strong>
-      <span>-${d.desconto.toFixed(1)} pt <button onclick="excluirDesc(${d.id})" style="color:red; border:none; background:none; cursor:pointer; margin-left:10px;">✕</button></span>
-    </div>`).join('') || 'Nenhum desconto.';
+  const el = document.getElementById('lista-descontos');
+  el.innerHTML = data?.length ? data.map(d => `
+    <div class="grupo-row">
+      <div><div class="gname">${d.grupos?.nome_grupo}</div></div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <span class="desc-tag">-${d.desconto.toFixed(1)} pt</span>
+        <button class="btn-sm danger" onclick="excluirDesconto(${d.id})">✕</button>
+      </div>
+    </div>`).join('') : '<div style="text-align:center; padding:20px; color:#aaa;">Nenhum desconto.</div>';
 }
 
-// ENVIO FINAL
-document.getElementById('btn-submit').onclick = async () => {
-  const nf = Object.values(scores).reduce((a,b)=>a+b,0) - (descontoAtual.valor || 0);
-  const { error } = await supabaseClient.from('avaliacoes').insert({
-    avaliador_id: document.getElementById('sel-avaliador').value,
-    grupo_id: document.getElementById('sel-grupo').value,
-    ...scores, observacoes: document.getElementById('obs').value, nota_final: Math.max(0, nf)
-  });
-  if(!error) { showToast('Avaliação Enviada!'); location.reload(); }
-};
-
-// AUXILIARES
-function switchTab(t) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-'+t));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.innerText.toLowerCase().includes(t)));
-  if(t==='coordenacao') carregarDescontos();
-  if(t==='resultados') carregarResultados();
+async function excluirDesconto(id) {
+  if(!confirm('Excluir?')) return;
+  await supabaseClient.from('descontos_tempo').delete().eq('id', id);
+  carregarDescontos();
 }
 
+// RESULTADOS E NAVEGAÇÃO
 async function carregarResultados() {
   const gid = document.getElementById('res-grupo').value;
   let q = supabaseClient.from('avaliacoes').select('*, Avaliadores(nome), grupos(nome_grupo)');
   if(gid) q = q.eq('grupo_id', gid);
   const { data } = await q;
+  
   document.getElementById('lista-resultados').innerHTML = data?.map(av => `
     <div class="card">
-      <div style="display:flex; justify-content:space-between;"><strong>${av.grupos.nome_grupo}</strong> <b>${av.nota_final.toFixed(1)}</b></div>
-      <div style="font-size:12px; color:#888;">Por: ${av.Avaliadores.nome}</div>
-    </div>`).join('') || 'Sem notas.';
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <strong>${av.grupos?.nome_grupo}</strong>
+        <span style="font-size:20px; font-weight:800; color:var(--navy);">${av.nota_final.toFixed(1)}</span>
+      </div>
+      <div style="font-size:12px; color:#888;">Jurado: ${av.Avaliadores?.nome}</div>
+    </div>`).join('');
 }
 
-function showToast(m, s='success') {
-  const t = document.getElementById('toast'); t.innerText = m; t.className = 'show '+s;
-  setTimeout(()=>t.className='', 3000);
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.onclick.toString().includes(tab)));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+  if(tab === 'coordenacao') carregarDescontos();
+  if(tab === 'resultados') carregarResultados();
+}
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `show ${type}`;
+  setTimeout(() => t.className = '', 3000);
 }
 
 renderCriteria();
-const sUrl = localStorage.getItem('sb_url');
-if(sUrl) { 
-  document.getElementById('cfg-url').value = sUrl; 
-  document.getElementById('cfg-key').value = localStorage.getItem('sb_key');
-  document.getElementById('btn-save-config').click();
+const savedUrl = localStorage.getItem('sb_url'), savedKey = localStorage.getItem('sb_key');
+if(savedUrl) { 
+  document.getElementById('cfg-url').value = savedUrl; 
+  document.getElementById('cfg-key').value = savedKey;
+  setTimeout(() => document.getElementById('btn-save-config').click(), 500);
 }
 </script>
 </body>
