@@ -170,35 +170,49 @@
       white-space: nowrap;
     }
 
-    /* ── Score buttons ── */
-    .score-btns {
+    /* ── Score input ── */
+    .score-input-wrap {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
     }
-    .score-btn {
-      width: 40px; height: 40px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
+    .score-input {
+      width: 100px;
       background: var(--surface);
-      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
       font-family: 'Syne', sans-serif;
-      font-size: 15px;
+      font-size: 20px;
       font-weight: 700;
-      cursor: pointer;
-      transition: all .15s;
-      display: flex; align-items: center; justify-content: center;
+      padding: 8px 12px;
+      outline: none;
+      transition: border-color .2s;
+      text-align: center;
     }
-    .score-btn:hover {
-      border-color: var(--accent);
+    .score-input:focus { border-color: var(--accent); }
+    .score-input::-webkit-inner-spin-button,
+    .score-input::-webkit-outer-spin-button { opacity: 1; }
+    .score-input-hint {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── Extra description (Solução/Inovação) ── */
+    .criterion-extra {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .criterion-extra-item {
+      font-size: 12px;
       color: var(--accent);
-      background: rgba(124,106,247,0.1);
-    }
-    .score-btn.selected {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(124,106,247,0.4);
+      background: rgba(124,106,247,0.07);
+      border-left: 2px solid var(--accent);
+      padding: 4px 10px;
+      border-radius: 0 6px 6px 0;
     }
 
     /* ── Total bar ── */
@@ -583,14 +597,14 @@ const AVALIADORES_ADS = [
 ];
 
 const CRITERIOS = [
-  { key: 'abertura',       label: '1. Abertura',           desc: 'A abertura foi impactante?',                                                     min: 1, max: 3 },
-  { key: 'problema',       label: '2. Problema',            desc: 'O problema foi descrito de forma clara e objetiva?',                              min: 1, max: 5 },
-  { key: 'solucao_inovacao', label: '3. Solução / Inovação', desc: 'A solução apresentada é inovadora e viável?',                                   min: 1, max: 5 },
-  { key: 'mercado',        label: '4. Mercado',             desc: 'A equipe possui entendimento sobre o mercado que atua?',                          min: 1, max: 5 },
-  { key: 'equipe',         label: '5. Equipe',              desc: 'A equipe está bem dimensionada em relação às atribuições desenvolvidas?',         min: 1, max: 3 },
-  { key: 'concorrencia',   label: '6. Concorrência',        desc: 'A proposta apresentou vantagens competitivas em relação aos concorrentes?',       min: 1, max: 3 },
-  { key: 'visao_futuro',   label: '7. Visão de Futuro',     desc: 'A equipe possui metas bem definidas para os próximos anos?',                     min: 1, max: 3 },
-  { key: 'tempo',          label: '8. Tempo',               desc: 'A proposta foi apresentada em até 5 minutos?',                                   min: 1, max: 3 },
+  { key: 'abertura',         label: '1. Abertura',           desc: 'A abertura foi impactante?',                                                                                                                                          min: 1, max: 3 },
+  { key: 'problema',         label: '2. Problema',            desc: 'O problema foi descrito de forma clara e objetiva?',                                                                                                                   min: 1, max: 5 },
+  { key: 'solucao_inovacao', label: '3. Solução / Inovação',  desc: 'A solução apresentada é inovadora?', extra: ['Nota 1-2 — Solução pouco clara ou sem inovação.', 'Nota 3-4 — Solução adequada, mas com diferenciação limitada.', 'Nota 5 — Solução inovadora, viável e alinhada ao desafio.'], min: 1, max: 5 },
+  { key: 'mercado',          label: '4. Mercado',             desc: 'A equipe possui entendimento sobre o mercado que atua?',                                                                                                               min: 1, max: 5 },
+  { key: 'equipe',           label: '5. Equipe',              desc: 'A equipe está bem dimensionada em relação às atribuições desenvolvidas?',                                                                                             min: 1, max: 3 },
+  { key: 'concorrencia',     label: '6. Concorrência',        desc: 'A proposta apresentou vantagens competitivas em relação aos concorrentes?',                                                                                           min: 1, max: 3 },
+  { key: 'visao_futuro',     label: '7. Visão de Futuro',     desc: 'A equipe possui metas bem definidas para os próximos anos?',                                                                                                          min: 1, max: 3 },
+  { key: 'tempo',            label: '8. Tempo',               desc: 'A proposta foi apresentada em até 5 minutos?',                                                                                                                        min: 1, max: 3 },
 ];
 
 // ─── State ────────────────────────────────────────────────────────
@@ -678,38 +692,53 @@ function renderCriteria() {
   const list = document.getElementById('criteria-list');
   list.innerHTML = '';
   CRITERIOS.forEach(c => {
-    const buttons = [];
-    for (let v = c.min; v <= c.max; v++) {
-      buttons.push(`<button class="score-btn" data-key="${c.key}" data-val="${v}">${v}</button>`);
-    }
+    const extraHtml = c.extra ? `<div class="criterion-extra">${c.extra.map(e => `<div class="criterion-extra-item">• ${e}</div>`).join('')}</div>` : '';
     list.innerHTML += `
       <div class="criterion">
         <div class="criterion-header">
           <div class="criterion-info">
             <div class="criterion-name">${c.label}</div>
             <div class="criterion-desc">${c.desc}</div>
+            ${extraHtml}
           </div>
           <div class="criterion-range">${c.min}–${c.max}</div>
         </div>
-        <div class="score-btns">${buttons.join('')}</div>
+        <div class="score-input-wrap">
+          <input
+            class="score-input"
+            type="number"
+            min="${c.min}" max="${c.max}"
+            step="0.5"
+            placeholder="Ex: 3.5"
+            data-key="${c.key}"
+            data-min="${c.min}"
+            data-max="${c.max}"
+          />
+          <span class="score-input-hint">Nota de ${c.min} a ${c.max} (aceita decimais)</span>
+        </div>
       </div>`;
   });
 
-  list.addEventListener('click', e => {
-    const btn = e.target.closest('.score-btn');
-    if (!btn) return;
-    const key = btn.dataset.key;
-    const val = parseInt(btn.dataset.val);
-    scores[key] = val;
-    // highlight
-    list.querySelectorAll(`.score-btn[data-key="${key}"]`).forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
+  list.addEventListener('input', e => {
+    const input = e.target.closest('.score-input');
+    if (!input) return;
+    const key = input.dataset.key;
+    const min = parseFloat(input.dataset.min);
+    const max = parseFloat(input.dataset.max);
+    const val = parseFloat(input.value);
+    if (!isNaN(val) && val >= min && val <= max) {
+      scores[key] = val;
+      input.style.borderColor = 'var(--success)';
+    } else {
+      delete scores[key];
+      input.style.borderColor = input.value ? 'var(--error)' : 'var(--border)';
+    }
     updateTotal();
   });
 }
 
 function updateTotal() {
-  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  const total = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) * 10) / 10;
   document.getElementById('total-display').innerHTML = `${total} <span>/ 30</span>`;
   checkSubmitReady();
 }
@@ -729,7 +758,7 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
   const avaliador_id = parseInt(document.getElementById('sel-avaliador').value);
   const grupo_id     = parseInt(document.getElementById('sel-grupo').value);
   const obs          = document.getElementById('obs').value.trim();
-  const nota_final   = Object.values(scores).reduce((a, b) => a + b, 0);
+  const nota_final   = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) * 10) / 10;
 
   const payload = {
     avaliador_id,
@@ -765,10 +794,13 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
 
 function resetForm() {
   scores = {};
-  document.getElementById('sel-avaliador').value = '';
+  document.getElementById('sel-avaliador').value = juradoLogado || '';
   document.getElementById('sel-grupo').value = '';
   document.getElementById('obs').value = '';
-  document.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.score-input').forEach(i => {
+    i.value = '';
+    i.style.borderColor = 'var(--border)';
+  });
   updateTotal();
 }
 
