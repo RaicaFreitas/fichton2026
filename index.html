@@ -502,9 +502,16 @@ async function loadData() {
     avaliadores = avs;
   }
 
-  // grupos
-  const { data: grps } = await supabaseClient.from('grupos').select('id, nome_grupo');
-  grupos = grps || [];
+  // grupos fixos
+  grupos = [
+    { id: 1, nome_grupo: 'CodeSquad' },
+    { id: 2, nome_grupo: 'Turistai' },
+    { id: 3, nome_grupo: 'WMW Tour' },
+    { id: 4, nome_grupo: 'Senakku no gakusei' },
+    { id: 5, nome_grupo: 'Pentacode' },
+    { id: 6, nome_grupo: 'Ecotrash' },
+    { id: 7, nome_grupo: 'Kaeté Adventures' },
+  ];
 
   renderSelects();
 }
