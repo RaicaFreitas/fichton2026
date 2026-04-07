@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -458,7 +457,7 @@ const CRITERIOS = [
 ];
 
 // ─── State ────────────────────────────────────────────────────────
-let supabase = null;
+let supabaseClient = null;
 let scores = {};
 let avaliadores = [];
 let grupos = [];
@@ -474,7 +473,7 @@ function savedCreds() {
 
 async function initSupabase(url, key) {
   const { createClient } = window.supabase;
-  supabase = createClient(url, key);
+  supabaseClient = createClient(url, key);
   localStorage.setItem('sb_url', url);
   localStorage.setItem('sb_key', key);
   await loadData();
@@ -495,7 +494,7 @@ btnCfg.addEventListener('click', () => {
 // ─── Load data from Supabase ───────────────────────────────────────
 async function loadData() {
   // avaliadores
-  const { data: avs } = await supabase.from('avaliadores').select('id, nome');
+  const { data: avs } = await supabaseClient.from('avaliadores').select('id, nome');
   // Se a tabela ainda não tiver dados, usa os fixos
   if (!avs || avs.length === 0) {
     avaliadores = AVALIADORES_ADS.map((a, i) => ({ id: i + 1, nome: a.nome }));
@@ -504,7 +503,7 @@ async function loadData() {
   }
 
   // grupos
-  const { data: grps } = await supabase.from('grupos').select('id, nome_grupo');
+  const { data: grps } = await supabaseClient.from('grupos').select('id, nome_grupo');
   grupos = grps || [];
 
   renderSelects();
@@ -607,7 +606,7 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
   btn.disabled = true;
   btn.textContent = 'Enviando...';
 
-  const { error } = await supabase.from('avaliacoes').insert(payload);
+  const { error } = await supabaseClient.from('avaliacoes').insert(payload);
 
   if (error) {
     showToast('Erro ao enviar: ' + error.message, 'error');
