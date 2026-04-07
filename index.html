@@ -40,7 +40,6 @@ body{
   min-height:100vh;
 }
 
-/* ── HEADER ── */
 header{
   background:var(--deep);
   position:relative;
@@ -86,7 +85,6 @@ header::after{
   letter-spacing:0.3px;
 }
 
-/* ── TABS ── */
 .tab-bar{
   display:flex;
   padding:0 32px;
@@ -112,10 +110,8 @@ header::after{
   border-bottom-color:var(--cyan);
 }
 
-/* ── MAIN ── */
 main{max-width:720px;margin:0 auto;padding:28px 20px 80px}
 
-/* ── CARD ── */
 .card{
   background:var(--white);
   border:1px solid var(--gray-200);
@@ -136,13 +132,12 @@ main{max-width:720px;margin:0 auto;padding:28px 20px 80px}
   height:1px;background:var(--gray-200);
 }
 
-/* ── FORM ELEMENTS ── */
 label{
   display:block;font-size:12px;font-weight:600;
   color:var(--gray-600);margin-bottom:5px;
   letter-spacing:0.3px;text-transform:uppercase;
 }
-select,textarea,input[type=number],input[type=text],input[type=url],input[type=password]{
+select,textarea,input[type=number],input[type=text],input[type=url]{
   width:100%;
   background:var(--off-white);
   border:1.5px solid var(--gray-200);
@@ -160,9 +155,7 @@ select:focus,textarea:focus,input:focus{
   background:var(--white);
   box-shadow:0 0 0 3px rgba(2,197,239,0.12);
 }
-textarea{resize:vertical;min-height:72px;line-height:1.5}
 
-/* ── CRITERIA ── */
 .criteria-list{display:flex;flex-direction:column;gap:10px}
 
 .criterion{
@@ -170,9 +163,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   border:1.5px solid var(--gray-200);
   border-radius:var(--radius);
   padding:14px 16px;
-  transition:border-color .15s;
 }
-.criterion:focus-within{border-color:var(--cyan)}
 
 .criterion-header{
   display:flex;justify-content:space-between;
@@ -191,7 +182,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   border:1.5px solid rgba(232,158,104,0.35);
   padding:3px 10px;border-radius:20px;
   white-space:nowrap;
-  flex-shrink:0;
 }
 
 .score-wrap{display:flex;align-items:center;gap:10px}
@@ -205,26 +195,11 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   border:2px solid var(--gray-200)!important;
   border-radius:var(--radius-sm)!important;
   color:var(--navy)!important;
-  transition:border-color .15s!important;
-}
-.score-input:focus{
-  border-color:var(--cyan)!important;
-  box-shadow:0 0 0 3px rgba(2,197,239,0.12)!important;
 }
 .score-input.valid{border-color:var(--success)!important;color:var(--success)!important}
 .score-input.invalid{border-color:var(--error)!important}
 .score-hint{font-size:12px;color:var(--gray-400);font-weight:500}
 
-.extra-items{margin-top:8px;display:flex;flex-direction:column;gap:3px}
-.extra-item{
-  font-size:11px;color:var(--orange-dark);
-  background:var(--orange-light);
-  border-left:2px solid var(--orange);
-  padding:4px 10px;border-radius:0 4px 4px 0;
-  font-weight:500;
-}
-
-/* ── TOTAL BAR ── */
 .total-bar{
   background:var(--white);
   border:1.5px solid var(--navy);
@@ -245,7 +220,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 }
 .total-value span{font-size:15px;color:var(--gray-400);font-weight:600;font-family:'Barlow',sans-serif}
 
-/* ── DESCONTO BADGE ── */
 .desconto-notice{
   background:var(--orange-light);
   border:1.5px solid rgba(232,158,104,0.45);
@@ -258,13 +232,11 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 .desconto-notice-label{
   font-size:12px;font-weight:600;color:var(--orange-dark);
 }
-.desconto-notice-sub{font-size:11px;color:var(--gray-600);margin-top:2px;font-weight:400}
 .desconto-notice-val{
   font-family:'Barlow Condensed',sans-serif;
   font-size:22px;font-weight:800;color:var(--orange-dark);
 }
 
-/* ── BUTTONS ── */
 .btn-primary{
   width:100%;padding:13px;
   background:var(--navy);
@@ -280,95 +252,10 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   box-shadow:0 4px 16px rgba(6,53,74,0.3);
   transform:translateY(-1px);
 }
-.btn-primary:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+.btn-primary:disabled{opacity:0.35;cursor:not-allowed}
 .btn-primary.cyan{background:var(--cyan);color:var(--deep);}
-.btn-primary.cyan:hover:not(:disabled){
-  background:#01adcf;
-  box-shadow:0 4px 16px rgba(2,197,239,0.35);
-}
 .btn-primary.orange{background:var(--orange);color:var(--deep);}
-.btn-primary.orange:hover:not(:disabled){
-  background:var(--orange-dark);color:var(--white);
-  box-shadow:0 4px 16px rgba(232,158,104,0.4);
-}
 
-/* ── CRONÔMETRO ── */
-.crono-display{
-  background:var(--deep);
-  border-radius:var(--radius-lg);
-  padding:24px 20px;
-  text-align:center;
-  margin-bottom:14px;
-}
-.crono-time{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:52px;font-weight:800;
-  color:var(--white);
-  letter-spacing:2px;
-  font-variant-numeric:tabular-nums;
-  line-height:1;
-}
-.crono-time.overtime{color:var(--orange)}
-.crono-time.undertime{color:var(--cyan)}
-.crono-limit{
-  font-size:12px;color:rgba(255,255,255,0.45);
-  margin-top:6px;font-weight:500;letter-spacing:0.5px;
-}
-.crono-status{
-  font-size:13px;font-weight:600;
-  margin-top:8px;color:rgba(255,255,255,0.65);
-}
-
-.crono-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
-.crono-btn{
-  padding:10px 8px;
-  border:1.5px solid var(--gray-200);
-  border-radius:var(--radius-sm);
-  background:var(--white);
-  color:var(--gray-800);
-  font-family:'Barlow',sans-serif;
-  font-size:13px;font-weight:600;
-  cursor:pointer;transition:all .15s;
-}
-.crono-btn:hover:not(:disabled){background:var(--gray-100);border-color:var(--gray-400)}
-.crono-btn:disabled{opacity:0.35;cursor:not-allowed}
-.crono-btn.go{
-  background:var(--success-bg);color:var(--success);
-  border-color:rgba(15,158,106,0.35);
-}
-.crono-btn.go:hover:not(:disabled){background:#c0f0dd}
-.crono-btn.stop-btn{
-  background:var(--error-bg);color:var(--error);
-  border-color:rgba(192,2,26,0.3);
-}
-.crono-btn.stop-btn:hover:not(:disabled){background:#fbd5d5}
-
-/* ── DESCONTO PREVIEW ── */
-.desc-preview{
-  background:var(--white);
-  border:1.5px solid var(--gray-200);
-  border-radius:var(--radius);
-  overflow:hidden;
-  margin-bottom:14px;
-}
-.desc-row{
-  display:flex;justify-content:space-between;
-  align-items:center;
-  padding:10px 16px;
-  border-bottom:1px solid var(--gray-100);
-  font-size:13px;
-}
-.desc-row:last-child{border-bottom:none}
-.desc-row .lbl{color:var(--gray-600);font-weight:500}
-.desc-row .val{font-weight:700;color:var(--gray-800)}
-.desc-row.highlight{background:var(--orange-light)}
-.desc-row.highlight .lbl{color:var(--orange-dark);font-weight:600}
-.desc-row.highlight .val{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:20px;color:var(--orange-dark);
-}
-
-/* ── INFO BOX ── */
 .info-box{
   background:#e8f6fa;
   border:1.5px solid rgba(2,197,239,0.25);
@@ -378,11 +265,9 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   margin-bottom:16px;line-height:1.5;
 }
 
-/* ── GRID ── */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:480px){.grid2{grid-template-columns:1fr}}
 
-/* ── CONFIG OVERLAY ── */
 #config-overlay{
   position:fixed;inset:0;
   background:rgba(6,53,74,0.65);
@@ -395,17 +280,8 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   border-radius:var(--radius-lg);
   padding:32px;
   width:100%;max-width:460px;
-  box-shadow:var(--shadow-lg);
 }
-.config-modal h2{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:22px;font-weight:800;color:var(--navy);margin-bottom:4px;
-}
-.config-modal p{font-size:13px;color:var(--gray-600);margin-bottom:24px}
-.field{margin-bottom:14px}
-.field label{text-transform:none;letter-spacing:0;font-weight:600;font-size:13px;color:var(--gray-800);margin-bottom:6px}
 
-/* ── CONFIG BTN ── */
 #btn-config{
   position:fixed;top:16px;right:16px;
   width:38px;height:38px;
@@ -414,16 +290,12 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;z-index:50;
-  transition:all .2s;
 }
-#btn-config:hover{background:rgba(255,255,255,0.2)}
 #btn-config svg{width:16px;height:16px;fill:rgba(255,255,255,0.65)}
 
-/* ── TAB PANELS ── */
 .tab-panel{display:none}
 .tab-panel.active{display:block}
 
-/* ── TOAST ── */
 #toast{
   position:fixed;bottom:24px;left:50%;
   transform:translateX(-50%) translateY(12px);
@@ -433,28 +305,11 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   font-size:13px;font-weight:600;color:var(--white);
   opacity:0;transition:all .3s;
   pointer-events:none;z-index:999;
-  white-space:nowrap;letter-spacing:0.3px;
-  box-shadow:var(--shadow-lg);
 }
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.success{background:var(--success)}
 #toast.error{background:var(--error)}
-#toast.warn{background:var(--orange);color:var(--deep);}
 
-/* ── ABA COORDENAÇÃO — EDIÇÃO ── */
-.coord-section{
-  background:var(--white);
-  border:1.5px solid var(--gray-200);
-  border-radius:var(--radius-lg);
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:var(--shadow);
-}
-.coord-section h3{
-  font-size:11px;font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;color:var(--gray-400);
-  margin-bottom:14px;
-}
 .grupo-row{
   display:flex;align-items:center;
   justify-content:space-between;
@@ -466,12 +321,10 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   background:var(--off-white);
 }
 .grupo-row .gname{font-weight:600;color:var(--navy);}
-.grupo-row .gdesc{color:var(--gray-400);font-size:11px;margin-top:1px}
 .desc-tag{
   font-size:11px;font-weight:700;
   background:var(--orange-light);
   color:var(--orange-dark);
-  border:1px solid rgba(232,158,104,0.3);
   padding:2px 8px;border-radius:20px;
 }
 .btn-sm{
@@ -480,14 +333,10 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   border-radius:var(--radius-sm);
   border:1.5px solid var(--gray-200);
   background:var(--white);
-  color:var(--navy);
-  cursor:pointer;transition:all .15s;
+  cursor:pointer;
 }
-.btn-sm:hover{background:var(--gray-100);border-color:var(--navy)}
-.btn-sm.danger{border-color:rgba(192,2,26,0.3);color:var(--error)}
-.btn-sm.danger:hover{background:var(--error-bg)}
+.btn-sm.danger{color:var(--error)}
 
-/* ── NOTA BREAKDOWN ── */
 .nota-breakdown{
   background:var(--off-white);
   border:1px solid var(--gray-200);
@@ -512,17 +361,16 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 
 <div id="config-overlay">
   <div class="config-modal">
-    <h2>⚙ Configurar Supabase</h2>
-    <p>Insira as credenciais do projeto. Encontre em <strong>Project Settings → API</strong>.</p>
-    <div class="field">
+    <h2 style="font-family:'Barlow Condensed', sans-serif; margin-bottom:10px;">⚙ Conectar Supabase</h2>
+    <div class="field" style="margin-bottom:10px;">
       <label>Project URL</label>
       <input id="cfg-url" type="url" placeholder="https://xxxx.supabase.co"/>
     </div>
-    <div class="field">
+    <div class="field" style="margin-bottom:15px;">
       <label>Anon Key</label>
       <input id="cfg-key" type="text" placeholder="eyJhbGciOi..."/>
     </div>
-    <button class="btn-primary cyan" id="btn-save-config" style="margin-top:8px">Conectar</button>
+    <button class="btn-primary cyan" id="btn-save-config">Conectar</button>
   </div>
 </div>
 
@@ -536,7 +384,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   </div>
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('avaliacao')">Jurado — Avaliação</button>
-    <button class="tab-btn" onclick="switchTab('coordenacao')">Coordenação — Tempo</button>
+    <button class="tab-btn" onclick="switchTab('coordenacao')">Coordenação — Descontos</button>
     <button class="tab-btn" onclick="switchTab('resultados')">Resultados</button>
   </div>
 </header>
@@ -544,47 +392,39 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 <main>
 
   <div class="tab-panel active" id="tab-avaliacao">
-
     <div class="card">
       <div class="card-title">Identificação</div>
       <div class="grid2">
         <div>
           <label>Jurado</label>
-          <select id="sel-avaliador">
-            <option value="">Selecione...</option>
-          </select>
+          <select id="sel-avaliador"><option value="">Selecione...</option></select>
         </div>
         <div>
           <label>Grupo</label>
-          <select id="sel-grupo">
-            <option value="">Selecione...</option>
-          </select>
+          <select id="sel-grupo"><option value="">Selecione...</option></select>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">Critérios Avaliativos — Pontuação Inteira</div>
+      <div class="card-title">Critérios Avaliativos</div>
       <div class="criteria-list" id="criteria-list"></div>
     </div>
 
     <div class="card">
       <div class="card-title">Observações</div>
-      <textarea id="obs" placeholder="Comentários adicionais sobre a apresentação (opcional)..."></textarea>
+      <textarea id="obs" placeholder="Comentários adicionais..."></textarea>
     </div>
 
     <div class="desconto-notice" id="desconto-notice">
-      <div>
-        <div class="desconto-notice-label">Desconto de tempo aplicado pela coordenação</div>
-        <div class="desconto-notice-sub">Registrado pelo cronometrista · subtraído da nota final</div>
-      </div>
+      <div class="desconto-notice-label">Desconto de tempo aplicado</div>
       <div class="desconto-notice-val" id="desconto-val-display">-0,0 pt</div>
     </div>
 
     <div class="total-bar">
       <div>
         <div class="total-label">Pontuação Final</div>
-        <div class="total-sub" id="total-sub">Soma dos critérios (máx. 30) menos desconto de tempo</div>
+        <div class="total-sub" id="total-sub">Soma dos critérios menos desconto</div>
       </div>
       <div class="total-value" id="total-display">0 <span>/ 30</span></div>
     </div>
@@ -593,94 +433,41 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   </div>
 
   <div class="tab-panel" id="tab-coordenacao">
-
     <div class="info-box">
-      A cada <strong>30 segundos</strong> fora do limite de 5 minutos (para mais ou para menos), a equipe perde <strong>0,1 ponto</strong> da pontuação total. O desconto é decimal e aplicado sobre a nota inteira dos jurados.
+      Insira manualmente o desconto em pontos (ex: 0.1, 0.2) para o grupo. Este valor será subtraído da nota final de todos os jurados para este grupo.
     </div>
 
     <div class="card">
-      <div class="card-title">Identificação</div>
-      <div class="grid2">
-        <div>
-          <label>Responsável</label>
-          <select id="crono-responsavel">
-            <option value="">Selecione...</option>
-            <option value="Coordenação">Coordenação</option>
-            <option value="Auxílio ADS">Auxílio ADS</option>
-          </select>
-        </div>
+      <div class="card-title">Registrar Desconto</div>
+      <div class="grid2" style="margin-bottom:15px;">
         <div>
           <label>Grupo</label>
-          <select id="crono-grupo">
-            <option value="">Selecione o grupo...</option>
-          </select>
+          <select id="input-desc-grupo"><option value="">Selecione o grupo...</option></select>
+        </div>
+        <div>
+          <label>Valor do Desconto (pts)</label>
+          <input type="number" id="input-desc-valor" step="0.1" min="0" placeholder="0.0">
         </div>
       </div>
+      <button class="btn-primary orange" id="btn-enviar-desconto" onclick="enviarDescontoManual()">
+        Registrar Desconto
+      </button>
     </div>
 
-    <div class="card" style="padding:20px">
-      <div class="card-title">Cronômetro</div>
-      <div class="crono-display">
-        <div class="crono-time" id="crono-display">00:00</div>
-        <div class="crono-limit">Limite: 5:00 min (300 segundos)</div>
-        <div class="crono-status" id="crono-status">Aguardando início...</div>
-      </div>
-      <div class="crono-btns">
-        <button class="crono-btn go" id="btn-crono-start" onclick="cronoStart()">▶ Iniciar</button>
-        <button class="crono-btn stop-btn" id="btn-crono-stop" onclick="cronoStop()" disabled>■ Parar</button>
-        <button class="crono-btn" onclick="cronoReset()">↺ Reiniciar</button>
-      </div>
-    </div>
-
-    <div class="desc-preview">
-      <div class="desc-row">
-        <span class="lbl">Tempo cronometrado</span>
-        <span class="val" id="dp-tempo">0s (00:00)</span>
-      </div>
-      <div class="desc-row">
-        <span class="lbl">Diferença do limite (5:00)</span>
-        <span class="val" id="dp-diff">— 0s</span>
-      </div>
-      <div class="desc-row">
-        <span class="lbl">Intervalos de 30s fora do limite</span>
-        <span class="val" id="dp-intervals">0 intervalos</span>
-      </div>
-      <div class="desc-row highlight">
-        <span class="lbl">Desconto a aplicar</span>
-        <span class="val" id="dp-desconto">-0,0 pt</span>
-      </div>
-    </div>
-
-    <button class="btn-primary orange" id="btn-crono-enviar" disabled onclick="enviarDesconto()">
-      Registrar Desconto de Tempo
-    </button>
-
-    <div style="margin-top:24px">
-      <div class="card-title" style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray-400);display:flex;align-items:center;gap:8px;margin-bottom:12px">
-        Descontos Registrados
-        <span style="flex:1;height:1px;background:var(--gray-200);display:block"></span>
-        <button class="btn-sm" onclick="carregarDescontos()" style="font-size:11px;padding:3px 10px">↻ Atualizar</button>
-      </div>
+    <div class="card">
+      <div class="card-title">Descontos Registrados</div>
       <div id="lista-descontos">
-        <div style="color:var(--gray-400);font-size:13px;text-align:center;padding:20px">Nenhum desconto registrado ainda.</div>
+        <div style="color:var(--gray-400); text-align:center; padding:20px;">Carregando...</div>
       </div>
     </div>
-
   </div>
 
   <div class="tab-panel" id="tab-resultados">
-    <div class="info-box">
-      Visualização das avaliações enviadas pelos jurados, com desconto de tempo aplicado.
-    </div>
     <div style="margin-bottom:12px;display:flex;gap:10px">
-      <select id="res-grupo" style="flex:1">
-        <option value="">Todos os grupos</option>
-      </select>
-      <button class="btn-primary" style="width:auto;padding:9px 20px;font-size:13px" onclick="carregarResultados()">Filtrar</button>
+      <select id="res-grupo" style="flex:1"><option value="">Todos os grupos</option></select>
+      <button class="btn-primary" style="width:auto;padding:9px 20px;" onclick="carregarResultados()">Atualizar</button>
     </div>
-    <div id="lista-resultados">
-      <div style="color:var(--gray-400);font-size:13px;text-align:center;padding:30px">Selecione um grupo ou carregue todos os resultados.</div>
-    </div>
+    <div id="lista-resultados"></div>
   </div>
 
 </main>
@@ -688,533 +475,186 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 <div id="toast"></div>
 
 <script>
-// ─── DADOS ────────────────────────────────────────────────────────────────────
+// CONFIGURAÇÕES E ESTADO
 const CRITERIOS = [
-  { key:'abertura',         label:'1. Abertura',          desc:'A abertura foi impactante?',                                                        min:1, max:3 },
-  { key:'problema',         label:'2. Problema',           desc:'O problema foi descrito de forma clara e objetiva?',                                  min:1, max:5 },
-  { key:'solucao_inovacao', label:'3. Solução / Inovação', desc:'A solução apresentada é inovadora?',
-    extra:['Nota 1-2 — Solução pouco clara ou sem inovação.','Nota 3-4 — Solução adequada, mas com diferenciação limitada.','Nota 5 — Solução inovadora, viável e alinhada ao desafio.'],
-    min:1, max:5 },
-  { key:'mercado',          label:'4. Mercado',            desc:'A equipe possui entendimento sobre o mercado que atua?',                             min:1, max:5 },
-  { key:'equipe',           label:'5. Equipe',             desc:'A equipe está bem dimensionada em relação às atribuições desenvolvidas?',            min:1, max:3 },
-  { key:'concorrencia',     label:'6. Concorrência',       desc:'A proposta apresentou vantagens competitivas em relação aos concorrentes?',          min:1, max:3 },
-  { key:'visao_futuro',     label:'7. Visão de Futuro',    desc:'A equipe possui metas bem definidas para os próximos anos?',                        min:1, max:3 },
-  { key:'tempo',            label:'8. Tempo',              desc:'A proposta foi apresentada em até 5 minutos?',                                       min:1, max:3 },
+  { key:'abertura', label:'1. Abertura', min:1, max:3, desc:'Impacto inicial' },
+  { key:'problema', label:'2. Problema', min:1, max:5, desc:'Clareza do problema' },
+  { key:'solucao_inovacao', label:'3. Solução', min:1, max:5, desc:'Inovação e viabilidade' },
+  { key:'mercado', label:'4. Mercado', min:1, max:5, desc:'Entendimento do público' },
+  { key:'equipe', label:'5. Equipe', min:1, max:3, desc:'Dimensionamento' },
+  { key:'concorrencia', label:'6. Concorrência', min:1, max:3, desc:'Vantagem competitiva' },
+  { key:'visao_futuro', label:'7. Visão', min:1, max:3, desc:'Metas futuras' },
+  { key:'tempo', label:'8. Tempo', min:1, max:3, desc:'Uso dos 5 minutos' },
 ];
 
-// ─── STATE ───────────────────────────────────────────────────────────────────
-let supabaseClient = null; // RENOMEADO PARA EVITAR CONFLITO
+let supabaseClient = null;
 let scores = {};
 let grupos = [];
-let avaliadores = [];
 let descontoAtual = { grupo_id: null, valor: 0 };
 
-// ─── SUPABASE CONFIG ─────────────────────────────────────────────────────────
-document.getElementById('btn-config').addEventListener('click', () => {
-  document.getElementById('config-overlay').style.display = 'flex';
-});
-
+// INICIALIZAÇÃO SUPABASE
+document.getElementById('btn-config').addEventListener('click', () => document.getElementById('config-overlay').style.display = 'flex');
 document.getElementById('btn-save-config').addEventListener('click', async () => {
   const url = document.getElementById('cfg-url').value.trim();
   const key = document.getElementById('cfg-key').value.trim();
-  if (!url || !key) return showToast('Preencha a URL e a Anon Key.', 'error');
-  await initSupabase(url, key);
-});
-
-async function initSupabase(url, key) {
-  // window.supabase é a referência da biblioteca via CDN
-  const { createClient } = window.supabase; 
+  if (!url || !key) return showToast('Preencha os campos.', 'error');
+  
+  const { createClient } = window.supabase;
   supabaseClient = createClient(url, key);
-  localStorage.setItem('sb_url', url);
-  localStorage.setItem('sb_key', key);
+  localStorage.setItem('sb_url', url); localStorage.setItem('sb_key', key);
   await loadData();
   document.getElementById('config-overlay').style.display = 'none';
-  showToast('Conectado ao Supabase!', 'success');
-}
+  showToast('Conectado!', 'success');
+});
 
-// ─── CARREGAR DADOS ───────────────────────────────────────────────────────────
 async function loadData() {
   if(!supabaseClient) return;
-  const { data: avs } = await supabaseClient
-    .from('Avaliadores')
-    .select('id, nome')
-    .order('id');
-
-  avaliadores = avs || [];
+  const { data: avs } = await supabaseClient.from('Avaliadores').select('id, nome').order('nome');
   const selAv = document.getElementById('sel-avaliador');
   selAv.innerHTML = '<option value="">Selecione...</option>';
-  avaliadores.forEach(a => {
-    const o = document.createElement('option');
-    o.value = a.id; o.textContent = a.nome;
-    selAv.appendChild(o);
-  });
+  avs?.forEach(a => selAv.add(new Option(a.nome, a.id)));
 
-  const { data: gps } = await supabaseClient
-    .from('grupos')
-    .select('id, nome_grupo, projeto, integrantes')
-    .order('id');
-
+  const { data: gps } = await supabaseClient.from('grupos').select('*').order('nome_grupo');
   grupos = gps || [];
-  renderGruposSelects();
-}
-
-function renderGruposSelects() {
-  ['sel-grupo', 'crono-grupo', 'res-grupo'].forEach(id => {
+  ['sel-grupo', 'input-desc-grupo', 'res-grupo'].forEach(id => {
     const sel = document.getElementById(id);
-    const first = id === 'res-grupo'
-      ? '<option value="">Todos os grupos</option>'
-      : '<option value="">Selecione...</option>';
-    sel.innerHTML = first;
-    grupos.forEach(g => {
-      const o = document.createElement('option');
-      o.value = g.id;
-      o.textContent = g.nome_grupo + (g.projeto ? ` — ${g.projeto}` : '');
-      sel.appendChild(o);
-    });
+    sel.innerHTML = id === 'res-grupo' ? '<option value="">Todos</option>' : '<option value="">Selecione...</option>';
+    grupos.forEach(g => sel.add(new Option(g.nome_grupo, g.id)));
   });
 }
 
-// ─── CRITÉRIOS — PONTOS INTEIROS ─────────────────────────────────────────────
+// LOGICA AVALIAÇÃO
 function renderCriteria() {
   const list = document.getElementById('criteria-list');
-  list.innerHTML = '';
   CRITERIOS.forEach(c => {
-    const extraHtml = c.extra
-      ? `<div class="extra-items">${c.extra.map(e => `<div class="extra-item">• ${e}</div>`).join('')}</div>`
-      : '';
     const div = document.createElement('div');
     div.className = 'criterion';
     div.innerHTML = `
       <div class="criterion-header">
-        <div>
-          <div class="criterion-name">${c.label}</div>
-          <div class="criterion-desc">${c.desc}</div>
-          ${extraHtml}
-        </div>
-        <div class="badge-range">${c.min}–${c.max} pts</div>
+        <div><div class="criterion-name">${c.label}</div><div class="criterion-desc">${c.desc}</div></div>
+        <div class="badge-range">${c.min}-${c.max} pts</div>
       </div>
-      <div class="score-wrap">
-        <input class="score-input" type="number"
-          min="${c.min}" max="${c.max}" step="1"
-          placeholder="${c.min}"
-          data-key="${c.key}" data-min="${c.min}" data-max="${c.max}"/>
-        <span class="score-hint">Inteiro · de ${c.min} a ${c.max}</span>
-      </div>`;
+      <input class="score-input" type="number" min="${c.min}" max="${c.max}" data-key="${c.key}">`;
     list.appendChild(div);
   });
 
   list.addEventListener('input', e => {
-    const inp = e.target.closest('.score-input');
-    if (!inp) return;
+    const inp = e.target;
+    const val = Math.round(parseFloat(inp.value));
     const key = inp.dataset.key;
-    const min = parseInt(inp.dataset.min);
-    const max = parseInt(inp.dataset.max);
-    const raw = parseFloat(inp.value);
-    const val = Math.round(raw);
-    if (!isNaN(val) && val >= min && val <= max) {
-      scores[key] = val;
-      inp.value = val;
-      inp.classList.add('valid'); inp.classList.remove('invalid');
+    const crit = CRITERIOS.find(c => c.key === key);
+    if(val >= crit.min && val <= crit.max) {
+      scores[key] = val; inp.classList.add('valid');
     } else {
-      delete scores[key];
-      if (inp.value !== '') { inp.classList.add('invalid'); inp.classList.remove('valid'); }
-      else { inp.classList.remove('valid','invalid'); }
+      delete scores[key]; inp.classList.remove('valid');
     }
     updateTotal();
-  });
-
-  list.addEventListener('keydown', e => {
-    if (e.target.classList.contains('score-input')) {
-      if (['.', ','].includes(e.key)) e.preventDefault();
-    }
   });
 }
 
 function updateTotal() {
   const sub = Object.values(scores).reduce((a, b) => a + b, 0);
-  const desc = descontoAtual.valor || 0;
-  const total = Math.max(0, Math.round((sub - desc) * 10) / 10);
-  document.getElementById('total-display').innerHTML =
-    `${total.toFixed(1).replace('.',',')} <span>/ 30</span>`;
-  if (desc > 0) {
-    document.getElementById('total-sub').textContent =
-      `Soma dos critérios: ${sub} pt — Desconto de tempo: -${desc.toFixed(1).replace('.',',')} pt`;
-  } else {
-    document.getElementById('total-sub').textContent =
-      `Soma dos critérios (máx. 30) menos desconto de tempo`;
-  }
-  checkSubmitReady();
+  const total = Math.max(0, sub - (descontoAtual.valor || 0));
+  document.getElementById('total-display').innerHTML = `${total.toFixed(1).replace('.',',')} <span>/ 30</span>`;
+  document.getElementById('btn-submit').disabled = !(Object.keys(scores).length === 8 && document.getElementById('sel-grupo').value && document.getElementById('sel-avaliador').value);
 }
 
-// ─── DESCONTO DO GRUPO SELECIONADO ────────────────────────────────────────────
-document.getElementById('sel-grupo').addEventListener('change', async () => {
-  checkSubmitReady();
-  await buscarDescontoGrupo();
-});
-document.getElementById('sel-avaliador').addEventListener('change', checkSubmitReady);
-
-async function buscarDescontoGrupo() {
-  if (!supabaseClient) return;
-  const gid = document.getElementById('sel-grupo').value;
-  if (!gid) {
-    descontoAtual = { grupo_id: null, valor: 0 };
-    document.getElementById('desconto-notice').classList.remove('show');
-    updateTotal();
-    return;
+document.getElementById('sel-grupo').addEventListener('change', async (e) => {
+  const gid = e.target.value;
+  if(!gid) { descontoAtual = { valor: 0 }; }
+  else {
+    const { data } = await supabaseClient.from('descontos_tempo').select('desconto').eq('grupo_id', gid).order('created_at', {ascending:false}).limit(1);
+    descontoAtual = { grupo_id: gid, valor: data?.[0]?.desconto || 0 };
   }
-  const { data } = await supabaseClient
-    .from('descontos_tempo')
-    .select('desconto')
-    .eq('grupo_id', parseInt(gid))
-    .order('created_at', { ascending: false })
-    .limit(1);
-
-  if (data && data.length > 0) {
-    const desc = parseFloat(data[0].desconto);
-    descontoAtual = { grupo_id: gid, valor: desc };
-    document.getElementById('desconto-val-display').textContent = `-${desc.toFixed(1).replace('.',',')} pt`;
-    document.getElementById('desconto-notice').classList.add('show');
-  } else {
-    descontoAtual = { grupo_id: gid, valor: 0 };
-    document.getElementById('desconto-notice').classList.remove('show');
-  }
+  document.getElementById('desconto-notice').classList.toggle('show', descontoAtual.valor > 0);
+  document.getElementById('desconto-val-display').textContent = `-${descontoAtual.valor.toFixed(1).replace('.',',')} pt`;
   updateTotal();
-}
+});
 
-function checkSubmitReady() {
-  const all = CRITERIOS.every(c => scores[c.key] !== undefined);
-  const av = document.getElementById('sel-avaliador').value;
-  const gp = document.getElementById('sel-grupo').value;
-  document.getElementById('btn-submit').disabled = !(all && av && gp);
-}
-
-// ─── SUBMIT AVALIAÇÃO ─────────────────────────────────────────────────────────
 document.getElementById('btn-submit').addEventListener('click', async () => {
-  if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
-
-  const avaliador_id = parseInt(document.getElementById('sel-avaliador').value);
-  const grupo_id     = parseInt(document.getElementById('sel-grupo').value);
-  const obs          = document.getElementById('obs').value.trim();
-
-  const sub = Object.values(scores).reduce((a, b) => a + b, 0);
-  const desc = descontoAtual.valor || 0;
-  const nota_final = Math.max(0, Math.round((sub - desc) * 10) / 10);
-
   const payload = {
-    avaliador_id,
-    grupo_id,
-    abertura:         scores.abertura,
-    problema:         scores.problema,
-    solucao_inovacao: scores.solucao_inovacao,
-    mercado:          scores.mercado,
-    equipe:           scores.equipe,
-    concorrencia:     scores.concorrencia,
-    visao_futuro:     scores.visao_futuro,
-    tempo:            scores.tempo,
-    observacoes:      obs || null,
-    nota_final,
+    avaliador_id: parseInt(document.getElementById('sel-avaliador').value),
+    grupo_id: parseInt(document.getElementById('sel-grupo').value),
+    ...scores,
+    observacoes: document.getElementById('obs').value,
+    nota_final: Math.max(0, Object.values(scores).reduce((a,b)=>a+b,0) - (descontoAtual.valor || 0))
   };
-
-  const btn = document.getElementById('btn-submit');
-  btn.disabled = true; btn.textContent = 'Enviando...';
-
   const { error } = await supabaseClient.from('avaliacoes').insert(payload);
-
-  if (error) {
-    showToast('Erro: ' + error.message, 'error');
-    btn.disabled = false; btn.textContent = 'Enviar Avaliação';
-  } else {
-    showToast('Avaliação enviada com sucesso!', 'success');
-    resetForm();
-    btn.textContent = 'Enviar Avaliação';
-  }
+  if(error) showToast(error.message, 'error');
+  else { showToast('Sucesso!', 'success'); location.reload(); }
 });
 
-function resetForm() {
-  scores = {};
-  descontoAtual = { grupo_id: null, valor: 0 };
-  document.getElementById('sel-grupo').value = '';
-  document.getElementById('obs').value = '';
-  document.getElementById('desconto-notice').classList.remove('show');
-  document.querySelectorAll('.score-input').forEach(i => {
-    i.value = ''; i.classList.remove('valid','invalid');
+// LOGICA COORDENAÇÃO (MANUAL)
+async function enviarDescontoManual() {
+  const gid = document.getElementById('input-desc-grupo').value;
+  const valor = parseFloat(document.getElementById('input-desc-valor').value);
+  if(!gid || isNaN(valor)) return showToast('Selecione grupo e valor.', 'error');
+
+  const { error } = await supabaseClient.from('descontos_tempo').insert({
+    grupo_id: parseInt(gid),
+    desconto: valor,
+    registrado_por: 'Coordenação'
   });
-  updateTotal();
+
+  if(error) showToast(error.message, 'error');
+  else { showToast('Desconto registrado!', 'success'); carregarDescontos(); }
 }
 
-// ─── CRONÔMETRO ───────────────────────────────────────────────────────────────
-const LIMITE_SEG = 300;
-let cronoInterval = null;
-let cronoSec = 0;
-let cronoRunning = false;
-
-function fmtTime(s) {
-  const m = Math.floor(s / 60).toString().padStart(2, '0');
-  const ss = (s % 60).toString().padStart(2, '0');
-  return `${m}:${ss}`;
-}
-
-function cronoStart() {
-  if (cronoRunning) return;
-  cronoRunning = true;
-  document.getElementById('btn-crono-start').disabled = true;
-  document.getElementById('btn-crono-stop').disabled = false;
-  document.getElementById('crono-status').textContent = 'Cronômetro rodando...';
-  cronoInterval = setInterval(() => {
-    cronoSec++;
-    const d = document.getElementById('crono-display');
-    d.textContent = fmtTime(cronoSec);
-    if (cronoSec > LIMITE_SEG) {
-      d.className = 'crono-time overtime';
-    } else {
-      d.className = 'crono-time';
-    }
-    const status = cronoSec > LIMITE_SEG
-      ? `⚠ Ultrapassou em ${cronoSec - LIMITE_SEG}s`
-      : cronoSec < LIMITE_SEG
-        ? `${LIMITE_SEG - cronoSec}s restantes`
-        : '✓ Limite atingido!';
-    document.getElementById('crono-status').textContent = status;
-    updateDescontoPreview();
-  }, 1000);
-}
-
-function cronoStop() {
-  if (!cronoRunning) return;
-  cronoRunning = false;
-  clearInterval(cronoInterval);
-  document.getElementById('btn-crono-start').disabled = false;
-  document.getElementById('btn-crono-stop').disabled = true;
-  const gp = document.getElementById('crono-grupo').value;
-  const resp = document.getElementById('crono-responsavel').value;
-  document.getElementById('btn-crono-enviar').disabled = !(gp && resp);
-  updateDescontoPreview();
-}
-
-function cronoReset() {
-  clearInterval(cronoInterval);
-  cronoRunning = false; cronoSec = 0;
-  document.getElementById('crono-display').textContent = '00:00';
-  document.getElementById('crono-display').className = 'crono-time';
-  document.getElementById('crono-status').textContent = 'Aguardando início...';
-  document.getElementById('btn-crono-start').disabled = false;
-  document.getElementById('btn-crono-stop').disabled = true;
-  document.getElementById('btn-crono-enviar').disabled = true;
-  updateDescontoPreview();
-}
-
-function calcDesconto(sec) {
-  const diff = Math.abs(sec - LIMITE_SEG);
-  const intervals = Math.floor(diff / 30);
-  const desconto = parseFloat((intervals * 0.1).toFixed(2));
-  return { diff, intervals, desconto };
-}
-
-function updateDescontoPreview() {
-  const { diff, intervals, desconto } = calcDesconto(cronoSec);
-  const sinal = cronoSec > LIMITE_SEG ? '+' : cronoSec < LIMITE_SEG ? '-' : '';
-  document.getElementById('dp-tempo').textContent = `${cronoSec}s (${fmtTime(cronoSec)})`;
-  document.getElementById('dp-diff').textContent = diff === 0 ? '— Exato!' : `${sinal}${diff}s`;
-  document.getElementById('dp-intervals').textContent = `${intervals} intervalo${intervals !== 1 ? 's' : ''}`;
-  document.getElementById('dp-desconto').textContent = `-${desconto.toFixed(1).replace('.',',')} pt`;
-}
-
-document.getElementById('crono-grupo').addEventListener('change', () => {
-  const gp = document.getElementById('crono-grupo').value;
-  const resp = document.getElementById('crono-responsavel').value;
-  if (!cronoRunning && cronoSec > 0)
-    document.getElementById('btn-crono-enviar').disabled = !(gp && resp);
-});
-document.getElementById('crono-responsavel').addEventListener('change', () => {
-  const gp = document.getElementById('crono-grupo').value;
-  const resp = document.getElementById('crono-responsavel').value;
-  if (!cronoRunning && cronoSec > 0)
-    document.getElementById('btn-crono-enviar').disabled = !(gp && resp);
-});
-
-async function enviarDesconto() {
-  if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
-  const grupo_id = parseInt(document.getElementById('crono-grupo').value);
-  const responsavel = document.getElementById('crono-responsavel').value;
-  if (!grupo_id || !responsavel) return showToast('Selecione o grupo e responsável.', 'warn');
-
-  const { diff, intervals, desconto } = calcDesconto(cronoSec);
-
-  const payload = {
-    grupo_id,
-    segundos_excedidos: diff,
-    desconto,
-    registrado_por: responsavel,
-  };
-
-  const btn = document.getElementById('btn-crono-enviar');
-  btn.disabled = true; btn.textContent = 'Registrando...';
-
-  const { error } = await supabaseClient.from('descontos_tempo').insert(payload);
-
-  if (error) {
-    showToast('Erro: ' + error.message, 'error');
-    btn.disabled = false;
-  } else {
-    const nomeGrupo = grupos.find(g => g.id === grupo_id)?.nome_grupo || 'grupo';
-    showToast(`Desconto de ${desconto.toFixed(1)}pt registrado para ${nomeGrupo}!`, 'success');
-    cronoReset();
-    document.getElementById('crono-grupo').value = '';
-    await carregarDescontos();
-  }
-  btn.textContent = 'Registrar Desconto de Tempo';
-}
-
-// ─── LISTA DE DESCONTOS COM OPÇÃO DE EXCLUIR ─────────────────────────────────
 async function carregarDescontos() {
-  if (!supabaseClient) return;
-  const { data, error } = await supabaseClient
-    .from('descontos_tempo')
-    .select('id, grupo_id, segundos_excedidos, desconto, registrado_por, created_at')
-    .order('created_at', { ascending: false });
-
+  const { data } = await supabaseClient.from('descontos_tempo').select('*, grupos(nome_grupo)').order('created_at', {ascending:false});
   const el = document.getElementById('lista-descontos');
-  if (!data || data.length === 0) {
-    el.innerHTML = '<div style="color:var(--gray-400);font-size:13px;text-align:center;padding:20px">Nenhum desconto registrado ainda.</div>';
-    return;
-  }
-
-  el.innerHTML = data.map(d => {
-    const grupo = grupos.find(g => g.id === d.grupo_id);
-    const nomeGrupo = grupo ? grupo.nome_grupo : `Grupo #${d.grupo_id}`;
-    const desc = parseFloat(d.desconto).toFixed(1);
-    const dt = d.created_at ? new Date(d.created_at).toLocaleString('pt-BR') : '';
-    return `
-      <div class="grupo-row" style="flex-wrap:wrap;gap:8px">
-        <div style="flex:1;min-width:120px">
-          <div class="gname">${nomeGrupo}</div>
-          <div class="gdesc">${d.segundos_excedidos}s fora do limite · por ${d.registrado_por} · ${dt}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <span class="desc-tag">-${desc.replace('.',',')} pt</span>
-          <button class="btn-sm danger" onclick="excluirDesconto(${d.id})">✕ Remover</button>
-        </div>
-      </div>`;
-  }).join('');
+  el.innerHTML = data?.length ? data.map(d => `
+    <div class="grupo-row">
+      <div><div class="gname">${d.grupos?.nome_grupo}</div></div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <span class="desc-tag">-${d.desconto.toFixed(1)} pt</span>
+        <button class="btn-sm danger" onclick="excluirDesconto(${d.id})">✕</button>
+      </div>
+    </div>`).join('') : '<div style="text-align:center; padding:20px; color:#aaa;">Nenhum desconto.</div>';
 }
 
 async function excluirDesconto(id) {
-  if (!confirm('Remover este desconto de tempo?')) return;
-  const { error } = await supabaseClient.from('descontos_tempo').delete().eq('id', id);
-  if (error) return showToast('Erro ao remover: ' + error.message, 'error');
-  showToast('Desconto removido.', 'success');
-  await carregarDescontos();
-  await buscarDescontoGrupo();
+  if(!confirm('Excluir?')) return;
+  await supabaseClient.from('descontos_tempo').delete().eq('id', id);
+  carregarDescontos();
 }
 
-// ─── ABA RESULTADOS ───────────────────────────────────────────────────────────
+// RESULTADOS E NAVEGAÇÃO
 async function carregarResultados() {
-  if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
-
-  const gidFiltro = document.getElementById('res-grupo').value;
-  let query = supabaseClient
-    .from('avaliacoes')
-    .select('*, Avaliadores(nome), grupos(nome_grupo, projeto)')
-    .order('grupo_id')
-    .order('avaliador_id');
-
-  if (gidFiltro) query = query.eq('grupo_id', parseInt(gidFiltro));
-
-  const { data, error } = await query;
-  const el = document.getElementById('lista-resultados');
-
-  if (error) {
-    el.innerHTML = `<div style="color:var(--error);font-size:13px;padding:16px">Erro: ${error.message}</div>`;
-    return;
-  }
-  if (!data || data.length === 0) {
-    el.innerHTML = '<div style="color:var(--gray-400);font-size:13px;text-align:center;padding:30px">Nenhuma avaliação encontrada.</div>';
-    return;
-  }
-
-  const porGrupo = {};
-  data.forEach(av => {
-    const gid = av.grupo_id;
-    if (!porGrupo[gid]) porGrupo[gid] = { grupo: av.grupos, avs: [] };
-    porGrupo[gid].avs.push(av);
-  });
-
-  el.innerHTML = Object.values(porGrupo).map(({ grupo, avs }) => {
-    const nomeGrupo = grupo ? grupo.nome_grupo : 'Grupo';
-    const projeto = grupo ? grupo.projeto : '';
-    const notas = avs.map(a => parseFloat(a.nota_final));
-    const media = notas.length > 0 ? (notas.reduce((a,b)=>a+b,0)/notas.length) : 0;
-    const mediaFmt = media.toFixed(1).replace('.',',');
-
-    const linhasAvs = avs.map(av => {
-      const nomeAv = av.Avaliadores ? av.Avaliadores.nome : `Avaliador #${av.avaliador_id}`;
-      const sub = [av.abertura,av.problema,av.solucao_inovacao,av.mercado,av.equipe,av.concorrencia,av.visao_futuro,av.tempo]
-        .filter(x => x !== null && x !== undefined)
-        .reduce((a,b)=>a+b,0);
-      const nf = parseFloat(av.nota_final).toFixed(1).replace('.',',');
-      return `
-        <div style="padding:10px 14px;border-bottom:1px solid var(--gray-100);font-size:13px">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <span style="font-weight:600;color:var(--navy)">${nomeAv}</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--deep)">${nf} pt</span>
-          </div>
-          <div class="nota-breakdown">
-            <div class="nota-row"><span>Soma critérios</span><span>${sub} pt</span></div>
-            <div class="nota-row"><span>Desconto tempo</span><span>-${(sub - parseFloat(av.nota_final)).toFixed(1).replace('.',',')} pt</span></div>
-            <div class="nota-row final"><span>Nota final</span><span>${nf} pt</span></div>
-          </div>
-          ${av.observacoes ? `<div style="font-size:11px;color:var(--gray-400);margin-top:6px;font-style:italic">"${av.observacoes}"</div>` : ''}
-        </div>`;
-    }).join('');
-
-    return `
-      <div class="coord-section" style="padding:0;overflow:hidden;margin-bottom:14px">
-        <div style="padding:14px 16px;background:var(--deep);display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <div style="font-weight:700;color:var(--white);font-size:14px">${nomeGrupo}</div>
-            ${projeto ? `<div style="font-size:11px;color:rgba(255,255,255,0.55)">${projeto}</div>` : ''}
-          </div>
-          <div style="text-align:right">
-            <div style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase">Média</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cyan)">${mediaFmt}</div>
-          </div>
-        </div>
-        ${linhasAvs}
-      </div>`;
-  }).join('');
+  const gid = document.getElementById('res-grupo').value;
+  let q = supabaseClient.from('avaliacoes').select('*, Avaliadores(nome), grupos(nome_grupo)');
+  if(gid) q = q.eq('grupo_id', gid);
+  const { data } = await q;
+  
+  document.getElementById('lista-resultados').innerHTML = data?.map(av => `
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <strong>${av.grupos?.nome_grupo}</strong>
+        <span style="font-size:20px; font-weight:800; color:var(--navy);">${av.nota_final.toFixed(1)}</span>
+      </div>
+      <div style="font-size:12px; color:#888;">Jurado: ${av.Avaliadores?.nome}</div>
+    </div>`).join('');
 }
 
-// ─── TAB SWITCH ──────────────────────────────────────────────────────────────
 function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['avaliacao','coordenacao','resultados'][i] === tab);
-  });
-  document.querySelectorAll('.tab-panel').forEach(p => {
-    p.classList.toggle('active', p.id === 'tab-' + tab);
-  });
-  if (tab === 'coordenacao') carregarDescontos();
-  if (tab === 'resultados') carregarResultados();
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.onclick.toString().includes(tab)));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+  if(tab === 'coordenacao') carregarDescontos();
+  if(tab === 'resultados') carregarResultados();
 }
 
-// ─── TOAST ───────────────────────────────────────────────────────────────────
-function showToast(msg, type = 'success') {
+function showToast(msg, type) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.className = `show ${type}`;
-  setTimeout(() => { t.className = ''; }, 3500);
+  setTimeout(() => t.className = '', 3000);
 }
 
-// ─── BOOT ────────────────────────────────────────────────────────────────────
 renderCriteria();
-updateDescontoPreview();
-
-const savedUrl = localStorage.getItem('sb_url');
-const savedKey = localStorage.getItem('sb_key');
-if (savedUrl && savedKey) {
-  document.getElementById('cfg-url').value = savedUrl;
+const savedUrl = localStorage.getItem('sb_url'), savedKey = localStorage.getItem('sb_key');
+if(savedUrl) { 
+  document.getElementById('cfg-url').value = savedUrl; 
   document.getElementById('cfg-key').value = savedKey;
-  initSupabase(savedUrl, savedKey);
-} else {
-  document.getElementById('config-overlay').style.display = 'flex';
+  setTimeout(() => document.getElementById('btn-save-config').click(), 500);
 }
 </script>
 </body>
