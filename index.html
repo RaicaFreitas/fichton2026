@@ -506,12 +506,10 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 </head>
 <body>
 
-<!-- Config Button -->
 <button id="btn-config" title="Configurar Supabase">
   <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.37-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.47.47 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
 </button>
 
-<!-- Config Overlay -->
 <div id="config-overlay">
   <div class="config-modal">
     <h2>⚙ Configurar Supabase</h2>
@@ -528,7 +526,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   </div>
 </div>
 
-<!-- Header -->
 <header>
   <div class="header-top">
     <div class="logo-mark"><span>ADS</span></div>
@@ -546,7 +543,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 
 <main>
 
-  <!-- ── ABA: JURADO ── -->
   <div class="tab-panel active" id="tab-avaliacao">
 
     <div class="card">
@@ -596,7 +592,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
     <button class="btn-primary" id="btn-submit" disabled>Enviar Avaliação</button>
   </div>
 
-  <!-- ── ABA: COORDENAÇÃO ── -->
   <div class="tab-panel" id="tab-coordenacao">
 
     <div class="info-box">
@@ -660,7 +655,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
       Registrar Desconto de Tempo
     </button>
 
-    <!-- Seção de edição de desconto -->
     <div style="margin-top:24px">
       <div class="card-title" style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray-400);display:flex;align-items:center;gap:8px;margin-bottom:12px">
         Descontos Registrados
@@ -674,7 +668,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 
   </div>
 
-  <!-- ── ABA: RESULTADOS ── -->
   <div class="tab-panel" id="tab-resultados">
     <div class="info-box">
       Visualização das avaliações enviadas pelos jurados, com desconto de tempo aplicado.
@@ -696,9 +689,8 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 
 <script>
 // ─── DADOS ────────────────────────────────────────────────────────────────────
-// IMPORTANTE: step="1" — pontos são INTEIROS
 const CRITERIOS = [
-  { key:'abertura',         label:'1. Abertura',          desc:'A abertura foi impactante?',                                                          min:1, max:3 },
+  { key:'abertura',         label:'1. Abertura',          desc:'A abertura foi impactante?',                                                        min:1, max:3 },
   { key:'problema',         label:'2. Problema',           desc:'O problema foi descrito de forma clara e objetiva?',                                  min:1, max:5 },
   { key:'solucao_inovacao', label:'3. Solução / Inovação', desc:'A solução apresentada é inovadora?',
     extra:['Nota 1-2 — Solução pouco clara ou sem inovação.','Nota 3-4 — Solução adequada, mas com diferenciação limitada.','Nota 5 — Solução inovadora, viável e alinhada ao desafio.'],
@@ -711,7 +703,7 @@ const CRITERIOS = [
 ];
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
-let supabase = null;
+let supabaseClient = null; // RENOMEADO PARA EVITAR CONFLITO
 let scores = {};
 let grupos = [];
 let avaliadores = [];
@@ -730,8 +722,9 @@ document.getElementById('btn-save-config').addEventListener('click', async () =>
 });
 
 async function initSupabase(url, key) {
-  const { createClient } = window.supabase;
-  supabase = createClient(url, key);
+  // window.supabase é a referência da biblioteca via CDN
+  const { createClient } = window.supabase; 
+  supabaseClient = createClient(url, key);
   localStorage.setItem('sb_url', url);
   localStorage.setItem('sb_key', key);
   await loadData();
@@ -741,7 +734,8 @@ async function initSupabase(url, key) {
 
 // ─── CARREGAR DADOS ───────────────────────────────────────────────────────────
 async function loadData() {
-  const { data: avs } = await supabase
+  if(!supabaseClient) return;
+  const { data: avs } = await supabaseClient
     .from('Avaliadores')
     .select('id, nome')
     .order('id');
@@ -755,7 +749,7 @@ async function loadData() {
     selAv.appendChild(o);
   });
 
-  const { data: gps } = await supabase
+  const { data: gps } = await supabaseClient
     .from('grupos')
     .select('id, nome_grupo, projeto, integrantes')
     .order('id');
@@ -815,12 +809,11 @@ function renderCriteria() {
     const key = inp.dataset.key;
     const min = parseInt(inp.dataset.min);
     const max = parseInt(inp.dataset.max);
-    // Força inteiro
     const raw = parseFloat(inp.value);
     const val = Math.round(raw);
     if (!isNaN(val) && val >= min && val <= max) {
       scores[key] = val;
-      inp.value = val; // garante que o campo exibe o inteiro
+      inp.value = val;
       inp.classList.add('valid'); inp.classList.remove('invalid');
     } else {
       delete scores[key];
@@ -830,7 +823,6 @@ function renderCriteria() {
     updateTotal();
   });
 
-  // Bloqueia digitação de ponto/vírgula
   list.addEventListener('keydown', e => {
     if (e.target.classList.contains('score-input')) {
       if (['.', ','].includes(e.key)) e.preventDefault();
@@ -839,9 +831,8 @@ function renderCriteria() {
 }
 
 function updateTotal() {
-  const sub = Object.values(scores).reduce((a, b) => a + b, 0); // inteiro
-  const desc = descontoAtual.valor || 0; // decimal (ex: 0.1, 0.2)
-  // nota_final = sub (inteiro) - desconto (decimal) → resultado pode ser decimal
+  const sub = Object.values(scores).reduce((a, b) => a + b, 0);
+  const desc = descontoAtual.valor || 0;
   const total = Math.max(0, Math.round((sub - desc) * 10) / 10);
   document.getElementById('total-display').innerHTML =
     `${total.toFixed(1).replace('.',',')} <span>/ 30</span>`;
@@ -863,7 +854,7 @@ document.getElementById('sel-grupo').addEventListener('change', async () => {
 document.getElementById('sel-avaliador').addEventListener('change', checkSubmitReady);
 
 async function buscarDescontoGrupo() {
-  if (!supabase) return;
+  if (!supabaseClient) return;
   const gid = document.getElementById('sel-grupo').value;
   if (!gid) {
     descontoAtual = { grupo_id: null, valor: 0 };
@@ -871,7 +862,7 @@ async function buscarDescontoGrupo() {
     updateTotal();
     return;
   }
-  const { data } = await supabase
+  const { data } = await supabaseClient
     .from('descontos_tempo')
     .select('desconto')
     .eq('grupo_id', parseInt(gid))
@@ -898,19 +889,15 @@ function checkSubmitReady() {
 }
 
 // ─── SUBMIT AVALIAÇÃO ─────────────────────────────────────────────────────────
-// CORREÇÃO: removido campo desconto_tempo que não existe na tabela avaliacoes
-// A nota_final já embute o desconto. O desconto fica apenas em descontos_tempo.
 document.getElementById('btn-submit').addEventListener('click', async () => {
-  if (!supabase) return showToast('Configure o Supabase primeiro.', 'error');
+  if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
 
   const avaliador_id = parseInt(document.getElementById('sel-avaliador').value);
   const grupo_id     = parseInt(document.getElementById('sel-grupo').value);
   const obs          = document.getElementById('obs').value.trim();
 
-  // sub é inteiro
   const sub = Object.values(scores).reduce((a, b) => a + b, 0);
   const desc = descontoAtual.valor || 0;
-  // nota_final pode ser decimal por causa do desconto (0.1 por intervalo)
   const nota_final = Math.max(0, Math.round((sub - desc) * 10) / 10);
 
   const payload = {
@@ -926,13 +913,12 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
     tempo:            scores.tempo,
     observacoes:      obs || null,
     nota_final,
-    // REMOVIDO: desconto_tempo — campo não existe na tabela avaliacoes
   };
 
   const btn = document.getElementById('btn-submit');
   btn.disabled = true; btn.textContent = 'Enviando...';
 
-  const { error } = await supabase.from('avaliacoes').insert(payload);
+  const { error } = await supabaseClient.from('avaliacoes').insert(payload);
 
   if (error) {
     showToast('Erro: ' + error.message, 'error');
@@ -980,8 +966,6 @@ function cronoStart() {
     d.textContent = fmtTime(cronoSec);
     if (cronoSec > LIMITE_SEG) {
       d.className = 'crono-time overtime';
-    } else if (cronoSec < LIMITE_SEG) {
-      d.className = 'crono-time';
     } else {
       d.className = 'crono-time';
     }
@@ -1049,7 +1033,7 @@ document.getElementById('crono-responsavel').addEventListener('change', () => {
 });
 
 async function enviarDesconto() {
-  if (!supabase) return showToast('Configure o Supabase primeiro.', 'error');
+  if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
   const grupo_id = parseInt(document.getElementById('crono-grupo').value);
   const responsavel = document.getElementById('crono-responsavel').value;
   if (!grupo_id || !responsavel) return showToast('Selecione o grupo e responsável.', 'warn');
@@ -1066,7 +1050,7 @@ async function enviarDesconto() {
   const btn = document.getElementById('btn-crono-enviar');
   btn.disabled = true; btn.textContent = 'Registrando...';
 
-  const { error } = await supabase.from('descontos_tempo').insert(payload);
+  const { error } = await supabaseClient.from('descontos_tempo').insert(payload);
 
   if (error) {
     showToast('Erro: ' + error.message, 'error');
@@ -1083,8 +1067,8 @@ async function enviarDesconto() {
 
 // ─── LISTA DE DESCONTOS COM OPÇÃO DE EXCLUIR ─────────────────────────────────
 async function carregarDescontos() {
-  if (!supabase) return;
-  const { data, error } = await supabase
+  if (!supabaseClient) return;
+  const { data, error } = await supabaseClient
     .from('descontos_tempo')
     .select('id, grupo_id, segundos_excedidos, desconto, registrado_por, created_at')
     .order('created_at', { ascending: false });
@@ -1116,20 +1100,19 @@ async function carregarDescontos() {
 
 async function excluirDesconto(id) {
   if (!confirm('Remover este desconto de tempo?')) return;
-  const { error } = await supabase.from('descontos_tempo').delete().eq('id', id);
+  const { error } = await supabaseClient.from('descontos_tempo').delete().eq('id', id);
   if (error) return showToast('Erro ao remover: ' + error.message, 'error');
   showToast('Desconto removido.', 'success');
   await carregarDescontos();
-  // Atualiza desconto no formulário se o grupo estiver selecionado
   await buscarDescontoGrupo();
 }
 
 // ─── ABA RESULTADOS ───────────────────────────────────────────────────────────
 async function carregarResultados() {
-  if (!supabase) return showToast('Configure o Supabase primeiro.', 'error');
+  if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
 
   const gidFiltro = document.getElementById('res-grupo').value;
-  let query = supabase
+  let query = supabaseClient
     .from('avaliacoes')
     .select('*, Avaliadores(nome), grupos(nome_grupo, projeto)')
     .order('grupo_id')
@@ -1149,7 +1132,6 @@ async function carregarResultados() {
     return;
   }
 
-  // Agrupa por grupo
   const porGrupo = {};
   data.forEach(av => {
     const gid = av.grupo_id;
