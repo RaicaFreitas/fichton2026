@@ -1,797 +1,825 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ficthon 2026 — Avaliação ADS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ficthon 2026 — Avaliação ADS</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#000080;
+  --navy-dark:#00005a;
+  --navy-mid:#0000b0;
+  --navy-light:#e8e8ff;
+  --navy-faint:#f0f0ff;
+  --orange:#FF8C00;
+  --orange-dark:#cc7000;
+  --orange-light:#fff3e0;
+  --white:#ffffff;
+  --off-white:#f7f7fb;
+  --gray-100:#f0f0f5;
+  --gray-200:#e2e2ec;
+  --gray-400:#a0a0bc;
+  --gray-600:#5a5a7a;
+  --gray-800:#2a2a42;
+  --success:#1a9e5c;
+  --success-bg:#e8f7f0;
+  --error:#d0021b;
+  --error-bg:#fdecea;
+  --radius-sm:6px;
+  --radius:10px;
+  --radius-lg:14px;
+  --shadow:0 2px 12px rgba(0,0,128,0.08);
+  --shadow-lg:0 8px 32px rgba(0,0,128,0.14);
+}
 
-    :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --surface2: #1c1c27;
-      --border: #2a2a3a;
-      --accent: #7c6af7;
-      --accent2: #f7c56a;
-      --text: #e8e8f0;
-      --muted: #7a7a99;
-      --success: #4ade80;
-      --error: #f87171;
-      --radius: 12px;
-    }
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--off-white);
+  color:var(--gray-800);
+  min-height:100vh;
+}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 0;
-    }
+/* ── HEADER ── */
+header{
+  background:var(--navy);
+  position:relative;
+  overflow:hidden;
+}
+header::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg, var(--orange) 0%, #ffb347 50%, var(--orange) 100%);
+}
+.header-top{
+  padding:20px 32px 18px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+.logo-mark{
+  width:48px;height:48px;
+  background:var(--orange);
+  border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.logo-mark span{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:800;letter-spacing:2px;
+  color:var(--white);
+}
+.header-title h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(20px,3.5vw,30px);
+  font-weight:800;
+  color:var(--white);
+  letter-spacing:0.5px;
+  line-height:1.1;
+}
+.header-title p{
+  font-size:12px;font-weight:400;
+  color:rgba(255,255,255,0.6);
+  margin-top:2px;
+  letter-spacing:0.3px;
+}
 
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #1a1040 0%, #0a0a0f 60%);
-      border-bottom: 1px solid var(--border);
-      padding: 32px 40px 28px;
-      position: relative;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 240px; height: 240px;
-      background: radial-gradient(circle, rgba(124,106,247,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .header-badge {
-      display: inline-block;
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(124,106,247,0.12);
-      border: 1px solid rgba(124,106,247,0.3);
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-    }
-    header h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -1px;
-    }
-    header h1 span { color: var(--accent); }
-    header p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 6px;
-    }
+/* ── TABS ── */
+.tab-bar{
+  display:flex;
+  padding:0 32px;
+  gap:0;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+.tab-btn{
+  padding:11px 22px;
+  font-family:'Barlow',sans-serif;
+  font-size:13px;font-weight:600;
+  color:rgba(255,255,255,0.55);
+  background:transparent;border:none;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  transition:all .2s;
+  letter-spacing:0.2px;
+  position:relative;
+  top:3px;
+}
+.tab-btn:hover:not(.active){color:rgba(255,255,255,0.8)}
+.tab-btn.active{
+  color:var(--orange);
+  border-bottom-color:var(--orange);
+}
 
-    /* ── Main layout ── */
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 40px 24px 80px;
-    }
+/* ── MAIN ── */
+main{max-width:720px;margin:0 auto;padding:28px 20px 80px}
 
-    /* ── Card ── */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      margin-bottom: 20px;
-    }
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
+/* ── CARD ── */
+.card{
+  background:var(--white);
+  border:1px solid var(--gray-200);
+  border-radius:var(--radius-lg);
+  padding:22px;
+  margin-bottom:16px;
+  box-shadow:var(--shadow);
+}
+.card-title{
+  font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--gray-400);
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-title::after{
+  content:'';flex:1;
+  height:1px;background:var(--gray-200);
+}
 
-    /* ── Form controls ── */
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    select, textarea {
-      width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      padding: 10px 14px;
-      outline: none;
-      transition: border-color .2s;
-      appearance: none;
-    }
-    select:focus, textarea:focus {
-      border-color: var(--accent);
-    }
-    select option { background: var(--surface2); }
-    textarea { resize: vertical; min-height: 80px; }
+/* ── FORM ELEMENTS ── */
+label{
+  display:block;font-size:12px;font-weight:600;
+  color:var(--gray-600);margin-bottom:5px;
+  letter-spacing:0.3px;text-transform:uppercase;
+}
+select,textarea,input[type=number],input[type=text],input[type=url],input[type=password]{
+  width:100%;
+  background:var(--off-white);
+  border:1.5px solid var(--gray-200);
+  border-radius:var(--radius-sm);
+  color:var(--gray-800);
+  font-family:'Barlow',sans-serif;
+  font-size:14px;font-weight:500;
+  padding:9px 12px;
+  outline:none;
+  transition:border-color .15s, box-shadow .15s;
+  appearance:none;
+}
+select:focus,textarea:focus,input:focus{
+  border-color:var(--navy);
+  background:var(--white);
+  box-shadow:0 0 0 3px rgba(0,0,128,0.08);
+}
+textarea{resize:vertical;min-height:72px;line-height:1.5}
 
-    /* ── Criteria rows ── */
-    .criteria-list { display: flex; flex-direction: column; gap: 14px; }
+/* ── CRITERIA ── */
+.criteria-list{display:flex;flex-direction:column;gap:10px}
 
-    .criterion {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 18px;
-      transition: border-color .2s;
-    }
-    .criterion:focus-within { border-color: rgba(124,106,247,0.5); }
+.criterion{
+  background:var(--off-white);
+  border:1.5px solid var(--gray-200);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  transition:border-color .15s;
+}
+.criterion:focus-within{border-color:var(--navy)}
 
-    .criterion-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-    .criterion-info { flex: 1; }
-    .criterion-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 3px;
-    }
-    .criterion-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-    .criterion-range {
-      font-size: 11px;
-      color: var(--accent);
-      font-weight: 600;
-      background: rgba(124,106,247,0.1);
-      border: 1px solid rgba(124,106,247,0.2);
-      padding: 3px 8px;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
+.criterion-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-start;gap:12px;margin-bottom:10px;
+}
+.criterion-name{
+  font-size:14px;font-weight:700;
+  color:var(--navy);margin-bottom:2px;
+}
+.criterion-desc{font-size:12px;color:var(--gray-600);line-height:1.5}
 
-    /* ── Score input ── */
-    .score-input-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 4px;
-    }
-    .score-input {
-      width: 100px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      padding: 8px 12px;
-      outline: none;
-      transition: border-color .2s;
-      text-align: center;
-    }
-    .score-input:focus { border-color: var(--accent); }
-    .score-input::-webkit-inner-spin-button,
-    .score-input::-webkit-outer-spin-button { opacity: 1; }
-    .score-input-hint {
-      font-size: 12px;
-      color: var(--muted);
-    }
+.badge-range{
+  font-size:11px;font-weight:700;
+  color:var(--orange);
+  background:var(--orange-light);
+  border:1.5px solid rgba(255,140,0,0.3);
+  padding:3px 10px;border-radius:20px;
+  white-space:nowrap;
+  flex-shrink:0;
+}
 
-    /* ── Extra description (Solução/Inovação) ── */
-    .criterion-extra {
-      margin-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .criterion-extra-item {
-      font-size: 12px;
-      color: var(--accent);
-      background: rgba(124,106,247,0.07);
-      border-left: 2px solid var(--accent);
-      padding: 4px 10px;
-      border-radius: 0 6px 6px 0;
-    }
+.score-wrap{display:flex;align-items:center;gap:10px}
+.score-input{
+  width:88px!important;
+  font-size:20px!important;
+  font-weight:700!important;
+  text-align:center!important;
+  padding:6px 8px!important;
+  background:var(--white)!important;
+  border:2px solid var(--gray-200)!important;
+  border-radius:var(--radius-sm)!important;
+  color:var(--navy)!important;
+  transition:border-color .15s!important;
+}
+.score-input:focus{
+  border-color:var(--navy)!important;
+  box-shadow:0 0 0 3px rgba(0,0,128,0.1)!important;
+}
+.score-input.valid{border-color:var(--success)!important;color:var(--success)!important}
+.score-input.invalid{border-color:var(--error)!important}
+.score-hint{font-size:12px;color:var(--gray-400);font-weight:500}
 
-    /* ── Total bar ── */
-    .total-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(135deg, rgba(124,106,247,0.1), rgba(247,197,106,0.07));
-      border: 1px solid rgba(124,106,247,0.3);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      margin-bottom: 20px;
-    }
-    .total-label {
-      font-family: 'Syne', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .total-value {
-      font-family: 'Syne', sans-serif;
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--accent2);
-    }
-    .total-value span {
-      font-size: 16px;
-      color: var(--muted);
-      font-weight: 400;
-    }
+.extra-items{margin-top:8px;display:flex;flex-direction:column;gap:3px}
+.extra-item{
+  font-size:11px;color:var(--orange-dark);
+  background:var(--orange-light);
+  border-left:2px solid var(--orange);
+  padding:4px 10px;border-radius:0 4px 4px 0;
+  font-weight:500;
+}
 
-    /* ── Submit button ── */
-    #btn-submit {
-      width: 100%;
-      padding: 16px;
-      background: var(--accent);
-      border: none;
-      border-radius: var(--radius);
-      color: #fff;
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all .2s;
-      position: relative;
-      overflow: hidden;
-    }
-    #btn-submit:hover:not(:disabled) {
-      background: #9580ff;
-      box-shadow: 0 8px 24px rgba(124,106,247,0.4);
-      transform: translateY(-1px);
-    }
-    #btn-submit:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+/* ── TOTAL BAR ── */
+.total-bar{
+  background:var(--white);
+  border:1.5px solid var(--navy);
+  border-radius:var(--radius-lg);
+  padding:16px 22px;
+  margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow);
+}
+.total-label{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gray-600);
+}
+.total-sub{font-size:12px;color:var(--gray-400);margin-top:2px;font-weight:500}
+.total-value{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:38px;font-weight:800;color:var(--navy);
+}
+.total-value span{font-size:15px;color:var(--gray-400);font-weight:600;font-family:'Barlow',sans-serif}
 
-    /* ── Toast ── */
-    #toast {
-      position: fixed;
-      bottom: 32px; left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 24px;
-      font-size: 14px;
-      font-weight: 500;
-      opacity: 0;
-      transition: all .3s;
-      pointer-events: none;
-      z-index: 999;
-      white-space: nowrap;
-    }
-    #toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    #toast.success { border-color: var(--success); color: var(--success); }
-    #toast.error   { border-color: var(--error);   color: var(--error);   }
+/* ── DESCONTO BADGE ── */
+.desconto-notice{
+  background:var(--orange-light);
+  border:1.5px solid rgba(255,140,0,0.4);
+  border-radius:var(--radius);
+  padding:12px 16px;margin-bottom:14px;
+  display:none;
+  align-items:center;justify-content:space-between;
+}
+.desconto-notice.show{display:flex}
+.desconto-notice-label{
+  font-size:12px;font-weight:600;color:var(--orange-dark);
+}
+.desconto-notice-sub{font-size:11px;color:var(--gray-600);margin-top:2px;font-weight:400}
+.desconto-notice-val{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px;font-weight:800;color:var(--orange-dark);
+}
 
-    /* ── Config modal overlay ── */
-    #config-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 100;
-      padding: 20px;
-    }
-    #config-modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 36px;
-      width: 100%;
-      max-width: 480px;
-    }
-    #config-modal h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-    #config-modal p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
-    .field { margin-bottom: 16px; }
-    .field label { color: var(--text); margin-bottom: 8px; font-size: 13px; font-weight: 500; }
-    .field input {
-      width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      padding: 10px 14px;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .field input:focus { border-color: var(--accent); }
-    #btn-save-config {
-      width: 100%;
-      margin-top: 8px;
-      padding: 14px;
-      background: var(--accent);
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    #btn-save-config:hover { background: #9580ff; }
+/* ── BUTTONS ── */
+.btn-primary{
+  width:100%;padding:13px;
+  background:var(--navy);
+  border:none;border-radius:var(--radius);
+  color:var(--white);
+  font-family:'Barlow',sans-serif;
+  font-size:14px;font-weight:700;
+  letter-spacing:0.5px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+}
+.btn-primary:hover:not(:disabled){
+  background:var(--navy-mid);
+  box-shadow:0 4px 16px rgba(0,0,128,0.25);
+  transform:translateY(-1px);
+}
+.btn-primary:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+.btn-primary.orange{background:var(--orange)}
+.btn-primary.orange:hover:not(:disabled){
+  background:var(--orange-dark);
+  box-shadow:0 4px 16px rgba(255,140,0,0.35);
+}
 
-    /* ── Login screen ── */
-    #login-screen {
-      position: fixed; inset: 0;
-      background: var(--bg);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 200;
-      padding: 20px;
-    }
-    #login-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px;
-      width: 100%;
-      max-width: 420px;
-      text-align: center;
-    }
-    #login-box .login-badge {
-      display: inline-block;
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(124,106,247,0.12);
-      border: 1px solid rgba(124,106,247,0.3);
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
-    #login-box h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-    #login-box p {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-    .login-field { margin-bottom: 16px; text-align: left; }
-    .login-field label { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
-    .login-field select,
-    .login-field input {
-      width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      padding: 11px 14px;
-      outline: none;
-      transition: border-color .2s;
-      appearance: none;
-    }
-    .login-field select:focus,
-    .login-field input:focus { border-color: var(--accent); }
-    #btn-login {
-      width: 100%;
-      padding: 14px;
-      background: var(--accent);
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: background .2s;
-    }
-    #btn-login:hover { background: #9580ff; }
-    #login-error {
-      color: var(--error);
-      font-size: 13px;
-      margin-top: 12px;
-      display: none;
-    }
+/* ── CRONÔMETRO ── */
+.crono-display{
+  background:var(--navy);
+  border-radius:var(--radius-lg);
+  padding:24px 20px;
+  text-align:center;
+  margin-bottom:14px;
+}
+.crono-time{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:52px;font-weight:800;
+  color:var(--white);
+  letter-spacing:2px;
+  font-variant-numeric:tabular-nums;
+  line-height:1;
+}
+.crono-time.overtime{color:var(--orange)}
+.crono-limit{
+  font-size:12px;color:rgba(255,255,255,0.5);
+  margin-top:6px;font-weight:500;letter-spacing:0.5px;
+}
+.crono-status{
+  font-size:13px;font-weight:600;
+  margin-top:8px;color:rgba(255,255,255,0.7);
+}
 
-    /* ── Config gear icon ── */
-    #btn-config {
-      position: fixed;
-      top: 20px; right: 20px;
-      width: 40px; height: 40px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      z-index: 50;
-      transition: border-color .2s;
-    }
-    #btn-config:hover { border-color: var(--accent); }
-    #btn-config svg { width: 18px; height: 18px; fill: var(--muted); }
-  </style>
+.crono-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+.crono-btn{
+  padding:10px 8px;
+  border:1.5px solid var(--gray-200);
+  border-radius:var(--radius-sm);
+  background:var(--white);
+  color:var(--gray-800);
+  font-family:'Barlow',sans-serif;
+  font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .15s;
+}
+.crono-btn:hover:not(:disabled){background:var(--gray-100);border-color:var(--gray-400)}
+.crono-btn:disabled{opacity:0.35;cursor:not-allowed}
+.crono-btn.go{
+  background:var(--success-bg);color:var(--success);
+  border-color:rgba(26,158,92,0.35);
+}
+.crono-btn.go:hover:not(:disabled){background:#d0f0e0}
+.crono-btn.stop-btn{
+  background:var(--error-bg);color:var(--error);
+  border-color:rgba(208,2,27,0.3);
+}
+.crono-btn.stop-btn:hover:not(:disabled){background:#fbd5d5}
+
+/* ── DESCONTO PREVIEW ── */
+.desc-preview{
+  background:var(--white);
+  border:1.5px solid var(--gray-200);
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin-bottom:14px;
+}
+.desc-row{
+  display:flex;justify-content:space-between;
+  align-items:center;
+  padding:10px 16px;
+  border-bottom:1px solid var(--gray-100);
+  font-size:13px;
+}
+.desc-row:last-child{border-bottom:none}
+.desc-row .lbl{color:var(--gray-600);font-weight:500}
+.desc-row .val{font-weight:700;color:var(--gray-800)}
+.desc-row.highlight{background:var(--orange-light)}
+.desc-row.highlight .lbl{color:var(--orange-dark);font-weight:600}
+.desc-row.highlight .val{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:20px;color:var(--orange-dark);
+}
+
+/* ── INFO BOX ── */
+.info-box{
+  background:var(--navy-faint);
+  border:1.5px solid rgba(0,0,128,0.15);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;font-size:13px;
+  color:var(--navy);font-weight:500;
+  margin-bottom:16px;line-height:1.5;
+}
+
+/* ── GRID ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+
+/* ── CONFIG OVERLAY ── */
+#config-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,128,0.55);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:100;padding:20px;
+}
+.config-modal{
+  background:var(--white);
+  border-radius:var(--radius-lg);
+  padding:32px;
+  width:100%;max-width:460px;
+  box-shadow:var(--shadow-lg);
+}
+.config-modal h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px;font-weight:800;color:var(--navy);margin-bottom:4px;
+}
+.config-modal p{font-size:13px;color:var(--gray-600);margin-bottom:24px}
+.field{margin-bottom:14px}
+.field label{text-transform:none;letter-spacing:0;font-weight:600;font-size:13px;color:var(--gray-800);margin-bottom:6px}
+
+/* ── CONFIG BTN ── */
+#btn-config{
+  position:fixed;top:16px;right:16px;
+  width:38px;height:38px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:50;
+  transition:all .2s;
+}
+#btn-config:hover{background:rgba(255,255,255,0.2)}
+#btn-config svg{width:16px;height:16px;fill:rgba(255,255,255,0.7)}
+
+/* ── TAB PANELS ── */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:var(--navy);
+  border-radius:var(--radius);
+  padding:12px 22px;
+  font-size:13px;font-weight:600;color:var(--white);
+  opacity:0;transition:all .3s;
+  pointer-events:none;z-index:999;
+  white-space:nowrap;letter-spacing:0.3px;
+  box-shadow:var(--shadow-lg);
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.success{background:var(--success)}
+#toast.error{background:var(--error)}
+#toast.warn{background:var(--orange)}
+</style>
 </head>
 <body>
 
-<!-- ── Login screen ── -->
-<div id="login-screen">
-  <div id="login-box">
-    <div class="login-badge">ADS · Ficthon 2026</div>
-    <h2>Acesso de Jurado</h2>
-    <p>Selecione seu nome e insira a senha para continuar.</p>
-    <div class="login-field">
-      <label>Seu nome</label>
-      <select id="login-nome">
-        <option value="">Selecione...</option>
-        <option value="1">João Forsetto</option>
-        <option value="2">Adilson Lugli</option>
-        <option value="3">Erinaldo Sanches Nascimento</option>
-      </select>
-    </div>
-    <div class="login-field">
-      <label>Senha</label>
-      <input id="login-senha" type="password" placeholder="••••••••" />
-    </div>
-    <button id="btn-login">Entrar</button>
-    <div id="login-error">Senha incorreta. Tente novamente.</div>
-  </div>
-</div>
+<!-- Config Button -->
+<button id="btn-config" title="Configurar Supabase">
+  <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.37-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.47.47 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+</button>
 
-<!-- ── Config overlay ── -->
+<!-- Config Overlay -->
 <div id="config-overlay">
-  <div id="config-modal">
-    <h2>⚙️ Configurar Supabase</h2>
-    <p>Insira as credenciais do seu projeto Supabase. Você encontra em <strong>Project Settings → API</strong>.</p>
+  <div class="config-modal">
+    <h2>⚙ Configurar Supabase</h2>
+    <p>Insira as credenciais do projeto. Encontre em <strong>Project Settings → API</strong>.</p>
     <div class="field">
       <label>Project URL</label>
-      <input id="cfg-url" type="url" placeholder="https://xxxx.supabase.co" />
+      <input id="cfg-url" type="url" placeholder="https://xxxx.supabase.co"/>
     </div>
     <div class="field">
       <label>Anon Key</label>
-      <input id="cfg-key" type="text" placeholder="eyJhbGciOi..." />
+      <input id="cfg-key" type="text" placeholder="eyJhbGciOi..."/>
     </div>
-    <button id="btn-save-config">Conectar</button>
+    <button class="btn-primary" id="btn-save-config" style="margin-top:8px">Conectar</button>
   </div>
 </div>
 
-<!-- ── Config button ── -->
-<button id="btn-config" title="Configurações">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96a7.02 7.02 0 0 0-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.47.47 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.37 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-  </svg>
-</button>
-
+<!-- Header -->
 <header>
-  <div class="header-badge">ADS · Ficthon 2026</div>
-  <h1>Formulário de <span>Avaliação</span></h1>
-  <p>Preencha todos os critérios para cada grupo apresentado.</p>
+  <div class="header-top">
+    <div class="logo-mark"><span>ADS</span></div>
+    <div class="header-title">
+      <h1>Ficthon 2026 — Avaliação</h1>
+      <p>Sistema de avaliação de projetos · SENAC</p>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('avaliacao')">Jurado — Avaliação</button>
+    <button class="tab-btn" onclick="switchTab('coordenacao')">Coordenação — Tempo</button>
+  </div>
 </header>
 
 <main>
 
-  <!-- Jurado + Grupo -->
-  <div class="card">
-    <div class="card-title">Identificação</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-      <div>
-        <label for="sel-avaliador">Jurado</label>
-        <select id="sel-avaliador">
-          <option value="">Selecione...</option>
-        </select>
-      </div>
-      <div>
-        <label for="sel-grupo">Grupo</label>
-        <select id="sel-grupo">
-          <option value="">Selecione...</option>
-        </select>
+  <!-- ── ABA: JURADO ── -->
+  <div class="tab-panel active" id="tab-avaliacao">
+
+    <div class="card">
+      <div class="card-title">Identificação</div>
+      <div class="grid2">
+        <div>
+          <label>Jurado</label>
+          <select id="sel-avaliador">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+        <div>
+          <label>Grupo</label>
+          <select id="sel-grupo">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Critérios -->
-  <div class="card">
-    <div class="card-title">Critérios Avaliativos</div>
-    <div class="criteria-list" id="criteria-list"></div>
-  </div>
-
-  <!-- Observações -->
-  <div class="card">
-    <div class="card-title">Observações</div>
-    <textarea id="obs" placeholder="Comentários adicionais sobre a apresentação (opcional)..."></textarea>
-  </div>
-
-  <!-- Total -->
-  <div class="total-bar">
-    <div>
-      <div class="total-label">Pontuação Total</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:2px;">Máximo: 30 pontos</div>
+    <div class="card">
+      <div class="card-title">Critérios Avaliativos</div>
+      <div class="criteria-list" id="criteria-list"></div>
     </div>
-    <div class="total-value" id="total-display">0 <span>/ 30</span></div>
+
+    <div class="card">
+      <div class="card-title">Observações</div>
+      <textarea id="obs" placeholder="Comentários adicionais sobre a apresentação (opcional)..."></textarea>
+    </div>
+
+    <div class="desconto-notice" id="desconto-notice">
+      <div>
+        <div class="desconto-notice-label">Desconto de tempo aplicado pela coordenação</div>
+        <div class="desconto-notice-sub">Registrado pelo cronometrista e subtraído da nota final</div>
+      </div>
+      <div class="desconto-notice-val" id="desconto-val-display">-0,0 pt</div>
+    </div>
+
+    <div class="total-bar">
+      <div>
+        <div class="total-label">Pontuação Total</div>
+        <div class="total-sub">Máximo: 30 pontos</div>
+      </div>
+      <div class="total-value" id="total-display">0,0 <span>/ 30</span></div>
+    </div>
+
+    <button class="btn-primary" id="btn-submit" disabled>Enviar Avaliação</button>
   </div>
 
-  <button id="btn-submit" disabled>Enviar Avaliação</button>
+  <!-- ── ABA: COORDENAÇÃO ── -->
+  <div class="tab-panel" id="tab-coordenacao">
+
+    <div class="info-box">
+      A cada 30 segundos fora do limite de 5 minutos (para mais ou para menos), a equipe perde <strong>0,1 ponto</strong> da pontuação total.
+    </div>
+
+    <div class="card">
+      <div class="card-title">Identificação</div>
+      <div class="grid2">
+        <div>
+          <label>Responsável</label>
+          <select id="crono-responsavel">
+            <option value="">Selecione...</option>
+            <option value="Coordenação">Coordenação</option>
+            <option value="Auxílio ADS">Auxílio ADS</option>
+          </select>
+        </div>
+        <div>
+          <label>Grupo</label>
+          <select id="crono-grupo">
+            <option value="">Selecione o grupo...</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:20px">
+      <div class="card-title">Cronômetro</div>
+      <div class="crono-display">
+        <div class="crono-time" id="crono-display">00:00</div>
+        <div class="crono-limit">Limite: 5:00 min (300 segundos)</div>
+        <div class="crono-status" id="crono-status">Aguardando início...</div>
+      </div>
+      <div class="crono-btns">
+        <button class="crono-btn go" id="btn-crono-start" onclick="cronoStart()">▶ Iniciar</button>
+        <button class="crono-btn stop-btn" id="btn-crono-stop" onclick="cronoStop()" disabled>■ Parar</button>
+        <button class="crono-btn" onclick="cronoReset()">↺ Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="desc-preview">
+      <div class="desc-row">
+        <span class="lbl">Tempo cronometrado</span>
+        <span class="val" id="dp-tempo">0s (00:00)</span>
+      </div>
+      <div class="desc-row">
+        <span class="lbl">Diferença do limite (5:00)</span>
+        <span class="val" id="dp-diff">— 0s</span>
+      </div>
+      <div class="desc-row">
+        <span class="lbl">Intervalos de 30s fora do limite</span>
+        <span class="val" id="dp-intervals">0 intervalos</span>
+      </div>
+      <div class="desc-row highlight">
+        <span class="lbl">Desconto a aplicar</span>
+        <span class="val" id="dp-desconto">-0,0 pt</span>
+      </div>
+    </div>
+
+    <button class="btn-primary orange" id="btn-crono-enviar" disabled onclick="enviarDesconto()">
+      Registrar Desconto de Tempo
+    </button>
+
+  </div>
+
 </main>
 
 <div id="toast"></div>
 
 <script>
-
-const SENHA_FIXA = 'ficthon2026'; 
-let juradoLogado = null;
-
-const loginScreen = document.getElementById('login-screen');
-
-document.getElementById('btn-login').addEventListener('click', () => {
-  const nome = document.getElementById('login-nome').value;
-  const senha = document.getElementById('login-senha').value;
-  const errEl = document.getElementById('login-error');
-
-  if (!nome) { errEl.textContent = 'Selecione seu nome.'; errEl.style.display = 'block'; return; }
-  if (senha !== SENHA_FIXA) { errEl.textContent = 'Senha incorreta. Tente novamente.'; errEl.style.display = 'block'; return; }
-
-  errEl.style.display = 'none';
-  juradoLogado = parseInt(nome);
-
-  // Pré-seleciona o jurado no formulário e bloqueia o campo
-  const selAv = document.getElementById('sel-avaliador');
-  selAv.value = juradoLogado;
-  selAv.disabled = true;
-
-  loginScreen.style.display = 'none';
-});
-
-document.getElementById('login-senha').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('btn-login').click();
-});
-
-// ─── Dados fixos ADS ───────────────────────────────────────────────
-const AVALIADORES_ADS = [
-  { nome: 'João Forsetto' },
-  { nome: 'Adilson Lugli' },
-  { nome: 'Erinaldo Sanches Nascimento' },
-];
-
+// ─── DADOS ───────────────────────────────────────────────────────────────────
 const CRITERIOS = [
-  { key: 'abertura',         label: '1. Abertura',           desc: 'A abertura foi impactante?',                                                                                                                                          min: 1, max: 3 },
-  { key: 'problema',         label: '2. Problema',            desc: 'O problema foi descrito de forma clara e objetiva?',                                                                                                                   min: 1, max: 5 },
-  { key: 'solucao_inovacao', label: '3. Solução / Inovação',  desc: 'A solução apresentada é inovadora?', extra: ['Nota 1-2 — Solução pouco clara ou sem inovação.', 'Nota 3-4 — Solução adequada, mas com diferenciação limitada.', 'Nota 5 — Solução inovadora, viável e alinhada ao desafio.'], min: 1, max: 5 },
-  { key: 'mercado',          label: '4. Mercado',             desc: 'A equipe possui entendimento sobre o mercado que atua?',                                                                                                               min: 1, max: 5 },
-  { key: 'equipe',           label: '5. Equipe',              desc: 'A equipe está bem dimensionada em relação às atribuições desenvolvidas?',                                                                                             min: 1, max: 3 },
-  { key: 'concorrencia',     label: '6. Concorrência',        desc: 'A proposta apresentou vantagens competitivas em relação aos concorrentes?',                                                                                           min: 1, max: 3 },
-  { key: 'visao_futuro',     label: '7. Visão de Futuro',     desc: 'A equipe possui metas bem definidas para os próximos anos?',                                                                                                          min: 1, max: 3 },
-  { key: 'tempo',            label: '8. Tempo',               desc: 'A proposta foi apresentada em até 5 minutos?',                                                                                                                        min: 1, max: 3 },
+  { key:'abertura',         label:'1. Abertura',          desc:'A abertura foi impactante?',                                                          min:1, max:3 },
+  { key:'problema',         label:'2. Problema',           desc:'O problema foi descrito de forma clara e objetiva?',                                  min:1, max:5 },
+  { key:'solucao_inovacao', label:'3. Solução / Inovação', desc:'A solução apresentada é inovadora?',
+    extra:['Nota 1-2 — Solução pouco clara ou sem inovação.','Nota 3-4 — Solução adequada, mas com diferenciação limitada.','Nota 5 — Solução inovadora, viável e alinhada ao desafio.'],
+    min:1, max:5 },
+  { key:'mercado',          label:'4. Mercado',            desc:'A equipe possui entendimento sobre o mercado que atua?',                             min:1, max:5 },
+  { key:'equipe',           label:'5. Equipe',             desc:'A equipe está bem dimensionada em relação às atribuições desenvolvidas?',            min:1, max:3 },
+  { key:'concorrencia',     label:'6. Concorrência',       desc:'A proposta apresentou vantagens competitivas em relação aos concorrentes?',          min:1, max:3 },
+  { key:'visao_futuro',     label:'7. Visão de Futuro',    desc:'A equipe possui metas bem definidas para os próximos anos?',                        min:1, max:3 },
+  { key:'tempo',            label:'8. Tempo',              desc:'A proposta foi apresentada em até 5 minutos?',                                       min:1, max:3 },
 ];
 
-// ─── State ────────────────────────────────────────────────────────
-let supabaseClient = null;
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let supabase = null;
 let scores = {};
-let avaliadores = [];
 let grupos = [];
+let descontoAtual = { grupo_id: null, valor: 0 };
 
-// ─── Config modal ─────────────────────────────────────────────────
-const overlay  = document.getElementById('config-overlay');
-const btnSave  = document.getElementById('btn-save-config');
-const btnCfg   = document.getElementById('btn-config');
+// ─── SUPABASE CONFIG ─────────────────────────────────────────────────────────
+document.getElementById('btn-config').addEventListener('click', () => {
+  document.getElementById('config-overlay').style.display = 'flex';
+});
 
-function savedCreds() {
-  return { url: localStorage.getItem('sb_url'), key: localStorage.getItem('sb_key') };
-}
-
-async function initSupabase(url, key) {
-  const { createClient } = window.supabase;
-  supabaseClient = createClient(url, key);
-  localStorage.setItem('sb_url', url);
-  localStorage.setItem('sb_key', key);
-  await loadData();
-  overlay.style.display = 'none';
-}
-
-btnSave.addEventListener('click', async () => {
+document.getElementById('btn-save-config').addEventListener('click', async () => {
   const url = document.getElementById('cfg-url').value.trim();
   const key = document.getElementById('cfg-key').value.trim();
   if (!url || !key) return showToast('Preencha a URL e a Anon Key.', 'error');
   await initSupabase(url, key);
 });
 
-btnCfg.addEventListener('click', () => {
-  overlay.style.display = 'flex';
-});
-
-// ─── Load data from Supabase ───────────────────────────────────────
-async function loadData() {
-  // avaliadores
-  const { data: avs } = await supabaseClient.from('avaliadores').select('id, nome');
-  // Se a tabela ainda não tiver dados, usa os fixos
-  if (!avs || avs.length === 0) {
-    avaliadores = AVALIADORES_ADS.map((a, i) => ({ id: i + 1, nome: a.nome }));
-  } else {
-    avaliadores = avs;
-  }
-
-  // grupos fixos
-  grupos = [
-    { id: 1, nome_grupo: 'CodeSquad' },
-    { id: 2, nome_grupo: 'Turistai' },
-    { id: 3, nome_grupo: 'WMW Tour' },
-    { id: 4, nome_grupo: 'Senakku no gakusei' },
-    { id: 5, nome_grupo: 'Pentacode' },
-    { id: 6, nome_grupo: 'Ecotrash' },
-    { id: 7, nome_grupo: 'Kaeté Adventures' },
-  ];
-
-  renderSelects();
+async function initSupabase(url, key) {
+  const { createClient } = window.supabase;
+  supabase = createClient(url, key);
+  localStorage.setItem('sb_url', url);
+  localStorage.setItem('sb_key', key);
+  await loadData();
+  document.getElementById('config-overlay').style.display = 'none';
+  showToast('Conectado ao Supabase!', 'success');
 }
 
-function renderSelects() {
+// ─── CARREGAR DADOS ───────────────────────────────────────────────────────────
+async function loadData() {
+  // Avaliadores da tabela "Avaliadores" (com A maiúsculo conforme seu banco)
+  const { data: avs, error: errAvs } = await supabase
+    .from('Avaliadores')
+    .select('id, nome')
+    .order('id');
+
   const selAv = document.getElementById('sel-avaliador');
   selAv.innerHTML = '<option value="">Selecione...</option>';
-  avaliadores.forEach(a => {
-    const o = document.createElement('option');
-    o.value = a.id;
-    o.textContent = a.nome;
-    selAv.appendChild(o);
-  });
-
-  if (juradoLogado) {
-    selAv.value = juradoLogado;
-    selAv.disabled = true;
+  if (avs && avs.length > 0) {
+    avs.forEach(a => {
+      const o = document.createElement('option');
+      o.value = a.id; o.textContent = a.nome;
+      selAv.appendChild(o);
+    });
   }
 
-  const selGp = document.getElementById('sel-grupo');
-  selGp.innerHTML = '<option value="">Selecione...</option>';
-  grupos.forEach(g => {
-    const o = document.createElement('option');
-    o.value = g.id;
-    o.textContent = g.nome_grupo;
-    selGp.appendChild(o);
+  // Grupos da tabela "grupos"
+  const { data: gps, error: errGps } = await supabase
+    .from('grupos')
+    .select('id, nome_grupo, projeto, integrantes')
+    .order('id');
+
+  if (gps) grupos = gps;
+
+  renderGruposSelects();
+}
+
+function renderGruposSelects() {
+  const ids = ['sel-grupo', 'crono-grupo'];
+  ids.forEach(id => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = '<option value="">Selecione...</option>';
+    grupos.forEach(g => {
+      const o = document.createElement('option');
+      o.value = g.id;
+      o.textContent = g.nome_grupo + (g.projeto ? ` — ${g.projeto}` : '');
+      sel.appendChild(o);
+    });
   });
 }
 
-// ─── Render criteria ──────────────────────────────────────────────
+// ─── CRITÉRIOS ────────────────────────────────────────────────────────────────
 function renderCriteria() {
   const list = document.getElementById('criteria-list');
   list.innerHTML = '';
   CRITERIOS.forEach(c => {
-    const extraHtml = c.extra ? `<div class="criterion-extra">${c.extra.map(e => `<div class="criterion-extra-item">• ${e}</div>`).join('')}</div>` : '';
-    list.innerHTML += `
-      <div class="criterion">
-        <div class="criterion-header">
-          <div class="criterion-info">
-            <div class="criterion-name">${c.label}</div>
-            <div class="criterion-desc">${c.desc}</div>
-            ${extraHtml}
-          </div>
-          <div class="criterion-range">${c.min}–${c.max}</div>
+    const extraHtml = c.extra
+      ? `<div class="extra-items">${c.extra.map(e => `<div class="extra-item">• ${e}</div>`).join('')}</div>`
+      : '';
+    const div = document.createElement('div');
+    div.className = 'criterion';
+    div.innerHTML = `
+      <div class="criterion-header">
+        <div>
+          <div class="criterion-name">${c.label}</div>
+          <div class="criterion-desc">${c.desc}</div>
+          ${extraHtml}
         </div>
-        <div class="score-input-wrap">
-          <input
-            class="score-input"
-            type="number"
-            min="${c.min}" max="${c.max}"
-            step="0.5"
-            placeholder="Ex: 3.5"
-            data-key="${c.key}"
-            data-min="${c.min}"
-            data-max="${c.max}"
-          />
-          <span class="score-input-hint">Nota de ${c.min} a ${c.max} (aceita decimais)</span>
-        </div>
+        <div class="badge-range">${c.min}–${c.max}</div>
+      </div>
+      <div class="score-wrap">
+        <input class="score-input" type="number"
+          min="${c.min}" max="${c.max}" step="0.5"
+          placeholder="${c.min}"
+          data-key="${c.key}" data-min="${c.min}" data-max="${c.max}"/>
+        <span class="score-hint">De ${c.min} a ${c.max} · aceita decimais</span>
       </div>`;
+    list.appendChild(div);
   });
 
   list.addEventListener('input', e => {
-    const input = e.target.closest('.score-input');
-    if (!input) return;
-    const key = input.dataset.key;
-    const min = parseFloat(input.dataset.min);
-    const max = parseFloat(input.dataset.max);
-    const val = parseFloat(input.value);
+    const inp = e.target.closest('.score-input');
+    if (!inp) return;
+    const key = inp.dataset.key;
+    const min = parseFloat(inp.dataset.min);
+    const max = parseFloat(inp.dataset.max);
+    const val = parseFloat(inp.value);
     if (!isNaN(val) && val >= min && val <= max) {
       scores[key] = val;
-      input.style.borderColor = 'var(--success)';
+      inp.classList.add('valid'); inp.classList.remove('invalid');
     } else {
       delete scores[key];
-      input.style.borderColor = input.value ? 'var(--error)' : 'var(--border)';
+      if (inp.value) { inp.classList.add('invalid'); inp.classList.remove('valid'); }
+      else { inp.classList.remove('valid','invalid'); }
     }
     updateTotal();
   });
 }
 
 function updateTotal() {
-  const total = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) * 10) / 10;
-  document.getElementById('total-display').innerHTML = `${total} <span>/ 30</span>`;
+  const sub = Object.values(scores).reduce((a, b) => a + b, 0);
+  const desc = descontoAtual.valor || 0;
+  const total = Math.max(0, Math.round((sub - desc) * 10) / 10);
+  document.getElementById('total-display').innerHTML =
+    `${total.toFixed(1).replace('.',',')} <span>/ 30</span>`;
   checkSubmitReady();
 }
 
-function checkSubmitReady() {
-  const allScored = CRITERIOS.every(c => scores[c.key] !== undefined);
-  const hasAv = document.getElementById('sel-avaliador').value;
-  const hasGp = document.getElementById('sel-grupo').value;
-  document.getElementById('btn-submit').disabled = !(allScored && hasAv && hasGp);
+// ─── DESCONTO DO GRUPO SELECIONADO ────────────────────────────────────────────
+document.getElementById('sel-grupo').addEventListener('change', async () => {
+  checkSubmitReady();
+  await buscarDescontoGrupo();
+});
+document.getElementById('sel-avaliador').addEventListener('change', checkSubmitReady);
+
+async function buscarDescontoGrupo() {
+  if (!supabase) return;
+  const gid = document.getElementById('sel-grupo').value;
+  if (!gid) {
+    descontoAtual = { grupo_id: null, valor: 0 };
+    document.getElementById('desconto-notice').classList.remove('show');
+    updateTotal();
+    return;
+  }
+  const { data } = await supabase
+    .from('descontos_tempo')
+    .select('desconto')
+    .eq('grupo_id', parseInt(gid))
+    .order('created_at', { ascending: false })
+    .limit(1);
+
+  if (data && data.length > 0) {
+    const desc = parseFloat(data[0].desconto);
+    descontoAtual = { grupo_id: gid, valor: desc };
+    document.getElementById('desconto-val-display').textContent = `-${desc.toFixed(1).replace('.',',')} pt`;
+    document.getElementById('desconto-notice').classList.add('show');
+  } else {
+    descontoAtual = { grupo_id: gid, valor: 0 };
+    document.getElementById('desconto-notice').classList.remove('show');
+  }
+  updateTotal();
 }
 
-document.getElementById('sel-avaliador').addEventListener('change', checkSubmitReady);
-document.getElementById('sel-grupo').addEventListener('change', checkSubmitReady);
+function checkSubmitReady() {
+  const all = CRITERIOS.every(c => scores[c.key] !== undefined);
+  const av = document.getElementById('sel-avaliador').value;
+  const gp = document.getElementById('sel-grupo').value;
+  document.getElementById('btn-submit').disabled = !(all && av && gp);
+}
 
-// ─── Submit ───────────────────────────────────────────────────────
+// ─── SUBMIT AVALIAÇÃO ─────────────────────────────────────────────────────────
 document.getElementById('btn-submit').addEventListener('click', async () => {
+  if (!supabase) return showToast('Configure o Supabase primeiro.', 'error');
+
   const avaliador_id = parseInt(document.getElementById('sel-avaliador').value);
   const grupo_id     = parseInt(document.getElementById('sel-grupo').value);
   const obs          = document.getElementById('obs').value.trim();
-  const nota_final   = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) * 10) / 10;
+  const sub          = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) * 10) / 10;
+  const desc         = descontoAtual.valor || 0;
+  const nota_final   = Math.max(0, Math.round((sub - desc) * 10) / 10);
 
   const payload = {
-    avaliador_id,
-    grupo_id,
-    abertura:       scores.abertura,
-    problema:       scores.problema,
+    avaliador_id, grupo_id,
+    abertura:         scores.abertura,
+    problema:         scores.problema,
     solucao_inovacao: scores.solucao_inovacao,
-    mercado:        scores.mercado,
-    equipe:         scores.equipe,
-    concorrencia:   scores.concorrencia,
-    visao_futuro:   scores.visao_futuro,
-    tempo:          scores.tempo,
+    mercado:          scores.mercado,
+    equipe:           scores.equipe,
+    concorrencia:     scores.concorrencia,
+    visao_futuro:     scores.visao_futuro,
+    tempo:            scores.tempo,
+    observacoes:      obs || null,
     nota_final,
-    observacoes:    obs || null,
+    desconto_tempo:   desc,
   };
 
   const btn = document.getElementById('btn-submit');
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
+  btn.disabled = true; btn.textContent = 'Enviando...';
 
-  const { error } = await supabaseClient.from('avaliacoes').insert(payload);
+  const { error } = await supabase.from('avaliacoes').insert(payload);
 
   if (error) {
-    showToast('Erro ao enviar: ' + error.message, 'error');
-    btn.disabled = false;
-    btn.textContent = 'Enviar Avaliação';
+    showToast('Erro: ' + error.message, 'error');
+    btn.disabled = false; btn.textContent = 'Enviar Avaliação';
   } else {
-    showToast('✅ Avaliação enviada com sucesso!', 'success');
+    showToast('Avaliação enviada com sucesso!', 'success');
     resetForm();
     btn.textContent = 'Enviar Avaliação';
   }
@@ -799,34 +827,164 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
 
 function resetForm() {
   scores = {};
-  document.getElementById('sel-avaliador').value = juradoLogado || '';
+  descontoAtual = { grupo_id: null, valor: 0 };
   document.getElementById('sel-grupo').value = '';
   document.getElementById('obs').value = '';
+  document.getElementById('desconto-notice').classList.remove('show');
   document.querySelectorAll('.score-input').forEach(i => {
-    i.value = '';
-    i.style.borderColor = 'var(--border)';
+    i.value = ''; i.classList.remove('valid','invalid');
   });
   updateTotal();
 }
 
-// ─── Toast ────────────────────────────────────────────────────────
+// ─── CRONÔMETRO ───────────────────────────────────────────────────────────────
+const LIMITE_SEG = 300;
+let cronoInterval = null;
+let cronoSec = 0;
+let cronoRunning = false;
+
+function fmtTime(s) {
+  const m = Math.floor(s / 60).toString().padStart(2, '0');
+  const ss = (s % 60).toString().padStart(2, '0');
+  return `${m}:${ss}`;
+}
+
+function cronoStart() {
+  if (cronoRunning) return;
+  cronoRunning = true;
+  document.getElementById('btn-crono-start').disabled = true;
+  document.getElementById('btn-crono-stop').disabled = false;
+  document.getElementById('crono-status').textContent = 'Cronômetro rodando...';
+  cronoInterval = setInterval(() => {
+    cronoSec++;
+    const d = document.getElementById('crono-display');
+    d.textContent = fmtTime(cronoSec);
+    d.className = 'crono-time' + (cronoSec > LIMITE_SEG ? ' overtime' : '');
+    const status = cronoSec > LIMITE_SEG
+      ? `⚠ Ultrapassou em ${cronoSec - LIMITE_SEG}s`
+      : cronoSec < LIMITE_SEG
+        ? `${LIMITE_SEG - cronoSec}s restantes`
+        : 'Limite atingido!';
+    document.getElementById('crono-status').textContent = status;
+    updateDescontoPreview();
+  }, 1000);
+}
+
+function cronoStop() {
+  if (!cronoRunning) return;
+  cronoRunning = false;
+  clearInterval(cronoInterval);
+  document.getElementById('btn-crono-start').disabled = false;
+  document.getElementById('btn-crono-stop').disabled = true;
+  const gp = document.getElementById('crono-grupo').value;
+  const resp = document.getElementById('crono-responsavel').value;
+  document.getElementById('btn-crono-enviar').disabled = !(gp && resp);
+  updateDescontoPreview();
+}
+
+function cronoReset() {
+  clearInterval(cronoInterval);
+  cronoRunning = false; cronoSec = 0;
+  document.getElementById('crono-display').textContent = '00:00';
+  document.getElementById('crono-display').className = 'crono-time';
+  document.getElementById('crono-status').textContent = 'Aguardando início...';
+  document.getElementById('btn-crono-start').disabled = false;
+  document.getElementById('btn-crono-stop').disabled = true;
+  document.getElementById('btn-crono-enviar').disabled = true;
+  updateDescontoPreview();
+}
+
+function calcDesconto(sec) {
+  const diff = Math.abs(sec - LIMITE_SEG);
+  const intervals = Math.floor(diff / 30);
+  const desconto = parseFloat((intervals * 0.1).toFixed(2));
+  return { diff, intervals, desconto };
+}
+
+function updateDescontoPreview() {
+  const { diff, intervals, desconto } = calcDesconto(cronoSec);
+  const sinal = cronoSec > LIMITE_SEG ? '+' : cronoSec < LIMITE_SEG ? '-' : '';
+  document.getElementById('dp-tempo').textContent = `${cronoSec}s (${fmtTime(cronoSec)})`;
+  document.getElementById('dp-diff').textContent = diff === 0 ? '— Exato!' : `${sinal}${diff}s`;
+  document.getElementById('dp-intervals').textContent = `${intervals} intervalo${intervals !== 1 ? 's' : ''}`;
+  document.getElementById('dp-desconto').textContent = `-${desconto.toFixed(1).replace('.',',')} pt`;
+}
+
+document.getElementById('crono-grupo').addEventListener('change', () => {
+  const gp = document.getElementById('crono-grupo').value;
+  const resp = document.getElementById('crono-responsavel').value;
+  if (!cronoRunning && cronoSec > 0)
+    document.getElementById('btn-crono-enviar').disabled = !(gp && resp);
+});
+document.getElementById('crono-responsavel').addEventListener('change', () => {
+  const gp = document.getElementById('crono-grupo').value;
+  const resp = document.getElementById('crono-responsavel').value;
+  if (!cronoRunning && cronoSec > 0)
+    document.getElementById('btn-crono-enviar').disabled = !(gp && resp);
+});
+
+async function enviarDesconto() {
+  if (!supabase) return showToast('Configure o Supabase primeiro.', 'error');
+
+  const grupo_id = parseInt(document.getElementById('crono-grupo').value);
+  const responsavel = document.getElementById('crono-responsavel').value;
+  if (!grupo_id || !responsavel) return showToast('Selecione o grupo e responsável.', 'warn');
+
+  const { diff, intervals, desconto } = calcDesconto(cronoSec);
+
+  const payload = {
+    grupo_id,
+    segundos_excedidos: diff,
+    desconto,
+    registrado_por: responsavel,
+  };
+
+  const btn = document.getElementById('btn-crono-enviar');
+  btn.disabled = true; btn.textContent = 'Registrando...';
+
+  const { error } = await supabase.from('descontos_tempo').insert(payload);
+
+  if (error) {
+    showToast('Erro: ' + error.message, 'error');
+    btn.disabled = false;
+  } else {
+    const nomeGrupo = grupos.find(g => g.id === grupo_id)?.nome_grupo || 'grupo';
+    showToast(`Desconto de ${desconto.toFixed(1)}pt registrado para ${nomeGrupo}!`, 'success');
+    cronoReset();
+    document.getElementById('crono-grupo').value = '';
+  }
+  btn.textContent = 'Registrar Desconto de Tempo';
+}
+
+// ─── TAB SWITCH ──────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['avaliacao','coordenacao'][i] === tab);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === 'tab-' + tab);
+  });
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
 function showToast(msg, type = 'success') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `show ${type}`;
+  t.textContent = msg; t.className = `show ${type}`;
   setTimeout(() => { t.className = ''; }, 3500);
 }
 
-// ─── Boot ─────────────────────────────────────────────────────────
+// ─── BOOT ────────────────────────────────────────────────────────────────────
 renderCriteria();
+updateDescontoPreview();
 
-const { url, key } = savedCreds();
-if (url && key) {
-  document.getElementById('cfg-url').value = url;
-  document.getElementById('cfg-key').value = key;
-  initSupabase(url, key);
+const savedUrl = localStorage.getItem('sb_url');
+const savedKey = localStorage.getItem('sb_key');
+if (savedUrl && savedKey) {
+  document.getElementById('cfg-url').value = savedUrl;
+  document.getElementById('cfg-key').value = savedKey;
+  initSupabase(savedUrl, savedKey);
 } else {
-  overlay.style.display = 'flex';
+  document.getElementById('config-overlay').style.display = 'flex';
 }
 </script>
 </body>
