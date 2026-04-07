@@ -341,6 +341,90 @@
     }
     #btn-save-config:hover { background: #9580ff; }
 
+    /* ── Login screen ── */
+    #login-screen {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 200;
+      padding: 20px;
+    }
+    #login-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+    #login-box .login-badge {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(124,106,247,0.12);
+      border: 1px solid rgba(124,106,247,0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    #login-box h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    #login-box p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .login-field { margin-bottom: 16px; text-align: left; }
+    .login-field label { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
+    .login-field select,
+    .login-field input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color .2s;
+      appearance: none;
+    }
+    .login-field select:focus,
+    .login-field input:focus { border-color: var(--accent); }
+    #btn-login {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background .2s;
+    }
+    #btn-login:hover { background: #9580ff; }
+    #login-error {
+      color: var(--error);
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+
     /* ── Config gear icon ── */
     #btn-config {
       position: fixed;
@@ -359,6 +443,30 @@
   </style>
 </head>
 <body>
+
+<!-- ── Login screen ── -->
+<div id="login-screen">
+  <div id="login-box">
+    <div class="login-badge">ADS · Ficthon 2026</div>
+    <h2>Acesso de Jurado</h2>
+    <p>Selecione seu nome e insira a senha para continuar.</p>
+    <div class="login-field">
+      <label>Seu nome</label>
+      <select id="login-nome">
+        <option value="">Selecione...</option>
+        <option value="1">João Forsetto</option>
+        <option value="2">Adilson Lugli</option>
+        <option value="3">Erinaldo Sanches Nascimento</option>
+      </select>
+    </div>
+    <div class="login-field">
+      <label>Senha</label>
+      <input id="login-senha" type="password" placeholder="••••••••" />
+    </div>
+    <button id="btn-login">Entrar</button>
+    <div id="login-error">Senha incorreta. Tente novamente.</div>
+  </div>
+</div>
 
 <!-- ── Config overlay ── -->
 <div id="config-overlay">
@@ -438,6 +546,35 @@
 <div id="toast"></div>
 
 <script>
+// ─── Login ────────────────────────────────────────────────────────
+const SENHA_FIXA = 'ficthon2026'; // 👈 altere aqui a senha
+let juradoLogado = null;
+
+const loginScreen = document.getElementById('login-screen');
+
+document.getElementById('btn-login').addEventListener('click', () => {
+  const nome = document.getElementById('login-nome').value;
+  const senha = document.getElementById('login-senha').value;
+  const errEl = document.getElementById('login-error');
+
+  if (!nome) { errEl.textContent = 'Selecione seu nome.'; errEl.style.display = 'block'; return; }
+  if (senha !== SENHA_FIXA) { errEl.textContent = 'Senha incorreta. Tente novamente.'; errEl.style.display = 'block'; return; }
+
+  errEl.style.display = 'none';
+  juradoLogado = parseInt(nome);
+
+  // Pré-seleciona o jurado no formulário e bloqueia o campo
+  const selAv = document.getElementById('sel-avaliador');
+  selAv.value = juradoLogado;
+  selAv.disabled = true;
+
+  loginScreen.style.display = 'none';
+});
+
+document.getElementById('login-senha').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('btn-login').click();
+});
+
 // ─── Dados fixos ADS ───────────────────────────────────────────────
 const AVALIADORES_ADS = [
   { nome: 'João Forsetto' },
