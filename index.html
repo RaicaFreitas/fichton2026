@@ -40,7 +40,6 @@ body{
   min-height:100vh;
 }
 
-/* ── HEADER ── */
 header{
   background:var(--deep);
   position:relative;
@@ -86,7 +85,6 @@ header::after{
   letter-spacing:0.3px;
 }
 
-/* ── TABS ── */
 .tab-bar{
   display:flex;
   padding:0 32px;
@@ -112,10 +110,8 @@ header::after{
   border-bottom-color:var(--cyan);
 }
 
-/* ── MAIN ── */
 main{max-width:720px;margin:0 auto;padding:28px 20px 80px}
 
-/* ── CARD ── */
 .card{
   background:var(--white);
   border:1px solid var(--gray-200);
@@ -136,7 +132,6 @@ main{max-width:720px;margin:0 auto;padding:28px 20px 80px}
   height:1px;background:var(--gray-200);
 }
 
-/* ── FORM ELEMENTS ── */
 label{
   display:block;font-size:12px;font-weight:600;
   color:var(--gray-600);margin-bottom:5px;
@@ -162,7 +157,6 @@ select:focus,textarea:focus,input:focus{
 }
 textarea{resize:vertical;min-height:72px;line-height:1.5}
 
-/* ── CRITERIA ── */
 .criteria-list{display:flex;flex-direction:column;gap:10px}
 
 .criterion{
@@ -224,7 +218,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   font-weight:500;
 }
 
-/* ── TOTAL BAR ── */
 .total-bar{
   background:var(--white);
   border:1.5px solid var(--navy);
@@ -245,7 +238,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 }
 .total-value span{font-size:15px;color:var(--gray-400);font-weight:600;font-family:'Barlow',sans-serif}
 
-/* ── DESCONTO BADGE ── */
 .desconto-notice{
   background:var(--orange-light);
   border:1.5px solid rgba(232,158,104,0.45);
@@ -264,7 +256,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   font-size:22px;font-weight:800;color:var(--orange-dark);
 }
 
-/* ── BUTTONS ── */
 .btn-primary{
   width:100%;padding:13px;
   background:var(--navy);
@@ -292,7 +283,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   box-shadow:0 4px 16px rgba(232,158,104,0.4);
 }
 
-/* ── DESCONTO MANUAL ── */
 .desconto-manual-box{
   background:var(--white);
   border:1.5px solid var(--gray-200);
@@ -327,7 +317,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   font-size:20px;color:var(--orange-dark);
 }
 
-/* Stepper de intervalos */
 .intervalo-stepper{
   display:flex;align-items:center;gap:12px;margin-top:4px;
 }
@@ -353,7 +342,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 }
 .stepper-label{font-size:12px;color:var(--gray-400);font-weight:500}
 
-/* ── INFO BOX ── */
 .info-box{
   background:#e8f6fa;
   border:1.5px solid rgba(2,197,239,0.25);
@@ -363,11 +351,9 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   margin-bottom:16px;line-height:1.5;
 }
 
-/* ── GRID ── */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:480px){.grid2{grid-template-columns:1fr}}
 
-/* ── CONFIG OVERLAY ── */
 #config-overlay{
   position:fixed;inset:0;
   background:rgba(6,53,74,0.65);
@@ -390,7 +376,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 .field{margin-bottom:14px}
 .field label{text-transform:none;letter-spacing:0;font-weight:600;font-size:13px;color:var(--gray-800);margin-bottom:6px}
 
-/* ── CONFIG BTN ── */
 #btn-config{
   position:fixed;top:16px;right:16px;
   width:38px;height:38px;
@@ -404,11 +389,9 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 #btn-config:hover{background:rgba(255,255,255,0.2)}
 #btn-config svg{width:16px;height:16px;fill:rgba(255,255,255,0.65)}
 
-/* ── TAB PANELS ── */
 .tab-panel{display:none}
 .tab-panel.active{display:block}
 
-/* ── TOAST ── */
 #toast{
   position:fixed;bottom:24px;left:50%;
   transform:translateX(-50%) translateY(12px);
@@ -426,7 +409,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 #toast.error{background:var(--error)}
 #toast.warn{background:var(--orange);color:var(--deep);}
 
-/* ── ABA COORDENAÇÃO ── */
 .coord-section{
   background:var(--white);
   border:1.5px solid var(--gray-200);
@@ -472,7 +454,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 .btn-sm.danger{border-color:rgba(192,2,26,0.3);color:var(--error)}
 .btn-sm.danger:hover{background:var(--error-bg)}
 
-/* ── NOTA BREAKDOWN ── */
 .nota-breakdown{
   background:var(--off-white);
   border:1px solid var(--gray-200);
@@ -488,7 +469,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   font-weight:700;color:var(--navy);font-size:13px;
 }
 
-/* ── DESCONTO CALCULADO PREVIEW ── */
 .desconto-calc-preview{
   background:var(--orange-light);
   border:1.5px solid rgba(232,158,104,0.4);
@@ -577,16 +557,16 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 
     <div class="desconto-notice" id="desconto-notice">
       <div>
-        <div class="desconto-notice-label">Desconto de tempo aplicado pela coordenação</div>
-        <div class="desconto-notice-sub">Registrado pelo coordenador · subtraído da nota final</div>
+        <div class="desconto-notice-label">Desconto de tempo registrado para este grupo</div>
+        <div class="desconto-notice-sub">Será subtraído do total geral na aba Resultados</div>
       </div>
       <div class="desconto-notice-val" id="desconto-val-display">-0,0 pt</div>
     </div>
 
     <div class="total-bar">
       <div>
-        <div class="total-label">Pontuação Final</div>
-        <div class="total-sub" id="total-sub">Soma dos critérios (máx. 30) menos desconto de tempo</div>
+        <div class="total-label">Pontuação desta avaliação</div>
+        <div class="total-sub" id="total-sub">Soma dos critérios (máx. 30 por jurado)</div>
       </div>
       <div class="total-value" id="total-display">0 <span>/ 30</span></div>
     </div>
@@ -598,7 +578,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   <div class="tab-panel" id="tab-coordenacao">
 
     <div class="info-box">
-      A cada <strong>30 segundos</strong> fora do limite de 5 minutos (para mais ou para menos), a equipe perde <strong>0,1 ponto</strong> da pontuação total. Informe o número de intervalos de 30s que a equipe ficou fora do tempo.
+      A cada <strong>30 segundos</strong> fora do limite de 5 minutos (para mais ou para menos), a equipe perde <strong>0,1 ponto</strong> do total geral. O desconto é aplicado <strong>uma única vez</strong> sobre a soma de todos os jurados.
     </div>
 
     <div class="card">
@@ -660,7 +640,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
   <!-- ══ ABA RESULTADOS ══ -->
   <div class="tab-panel" id="tab-resultados">
     <div class="info-box">
-      Visualização das avaliações enviadas pelos jurados, com desconto de tempo aplicado.
+      <strong>Como o total é calculado:</strong> Soma das notas de todos os jurados → desconto de tempo aplicado <strong>uma única vez</strong> no total do grupo. Ex.: jurado A deu 28, B deu 27, C deu 30 → soma = 85. Desconto de 0,1 pt → total final = 84,9 pt.
     </div>
     <div style="margin-bottom:12px;display:flex;gap:10px">
       <select id="res-grupo" style="flex:1">
@@ -821,21 +801,14 @@ function renderCriteria() {
 
 function updateTotal() {
   const sub = Object.values(scores).reduce((a, b) => a + b, 0);
-  const desc = descontoAtual.valor || 0;
-  const total = Math.max(0, Math.round((sub - desc) * 10) / 10);
   document.getElementById('total-display').innerHTML =
-    `${total.toFixed(1).replace('.',',')} <span>/ 30</span>`;
-  if (desc > 0) {
-    document.getElementById('total-sub').textContent =
-      `Soma dos critérios: ${sub} pt — Desconto de tempo: -${desc.toFixed(1).replace('.',',')} pt`;
-  } else {
-    document.getElementById('total-sub').textContent =
-      `Soma dos critérios (máx. 30) menos desconto de tempo`;
-  }
+    `${sub} <span>/ 30</span>`;
+  document.getElementById('total-sub').textContent =
+    `Pontuação deste jurado (máx. 30). O desconto é aplicado no total geral.`;
   checkSubmitReady();
 }
 
-// ─── DESCONTO DO GRUPO SELECIONADO (aba avaliação) ──────────────────────────
+// ─── DESCONTO DO GRUPO SELECIONADO (aba avaliação - só informativo) ──────────
 document.getElementById('sel-grupo').addEventListener('change', async () => {
   checkSubmitReady();
   await buscarDescontoGrupo();
@@ -848,7 +821,6 @@ async function buscarDescontoGrupo() {
   if (!gid) {
     descontoAtual = { grupo_id: null, valor: 0 };
     document.getElementById('desconto-notice').classList.remove('show');
-    updateTotal();
     return;
   }
   const { data } = await supabaseClient
@@ -867,7 +839,6 @@ async function buscarDescontoGrupo() {
     descontoAtual = { grupo_id: gid, valor: 0 };
     document.getElementById('desconto-notice').classList.remove('show');
   }
-  updateTotal();
 }
 
 function checkSubmitReady() {
@@ -885,9 +856,9 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
   const grupo_id     = parseInt(document.getElementById('sel-grupo').value);
   const obs          = document.getElementById('obs').value.trim();
 
-  const sub = Object.values(scores).reduce((a, b) => a + b, 0);
-  const desc = descontoAtual.valor || 0;
-  const nota_final = Math.max(0, Math.round((sub - desc) * 10) / 10);
+  // nota_final aqui é só a soma bruta deste jurado (sem desconto)
+  // o desconto será aplicado no total geral na aba Resultados
+  const nota_bruta = Object.values(scores).reduce((a, b) => a + b, 0);
 
   const payload = {
     avaliador_id,
@@ -901,7 +872,7 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
     visao_futuro:     scores.visao_futuro,
     tempo:            scores.tempo,
     observacoes:      obs || null,
-    nota_final,
+    nota_final:       nota_bruta, // salva a nota bruta do jurado
   };
 
   const btn = document.getElementById('btn-submit');
@@ -984,7 +955,6 @@ async function enviarDesconto() {
   } else {
     const nomeGrupo = grupos.find(g => g.id === grupo_id)?.nome_grupo || 'grupo';
     showToast(`Desconto de ${desconto.toFixed(1)}pt registrado para ${nomeGrupo}!`, 'success');
-    // reset
     intervalosDesconto = 0;
     document.getElementById('stepper-val').textContent = '0';
     document.getElementById('crono-grupo').value = '';
@@ -1040,6 +1010,11 @@ async function excluirDesconto(id) {
 }
 
 // ─── ABA RESULTADOS ───────────────────────────────────────────────────────────
+// LÓGICA CORRIGIDA:
+// - Cada jurado lança sua nota bruta (soma dos critérios, máx 30)
+// - Na aba Resultados: soma todas as notas brutas dos jurados
+// - Desconto de tempo é subtraído UMA ÚNICA VEZ do total do grupo
+// - Total final = (nota jurado A + nota jurado B + ...) − desconto
 async function carregarResultados() {
   if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
 
@@ -1066,13 +1041,13 @@ async function carregarResultados() {
     return;
   }
 
-  // 🔥 BUSCAR TODOS OS DESCONTOS
+  // Buscar todos os descontos
   const { data: descontos } = await supabaseClient
     .from('descontos_tempo')
     .select('grupo_id, desconto, created_at');
 
+  // Agrupar avaliações por grupo
   const porGrupo = {};
-
   data.forEach(av => {
     const gid = av.grupo_id;
     if (!porGrupo[gid]) porGrupo[gid] = { grupo: av.grupos, avs: [] };
@@ -1081,83 +1056,46 @@ async function carregarResultados() {
 
   el.innerHTML = Object.values(porGrupo).map(({ grupo, avs }) => {
     const nomeGrupo = grupo ? grupo.nome_grupo : 'Grupo';
-    const projeto = grupo ? grupo.projeto : '';
+    const projeto   = grupo ? grupo.projeto : '';
+    const gid       = avs[0].grupo_id;
 
-    const notas = avs.map(av => {
+    // Desconto único do grupo (registro mais recente)
+    const descontosGrupo = (descontos || [])
+      .filter(d => d.grupo_id === gid)
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const desconto = descontosGrupo.length > 0 ? parseFloat(descontosGrupo[0].desconto) : 0;
+
+    // Soma BRUTA de todos os jurados
+    const somaBruta = avs.reduce((acc, av) => {
       const sub = [
-        av.abertura,
-        av.problema,
-        av.solucao_inovacao,
-        av.mercado,
-        av.equipe,
-        av.concorrencia,
-        av.visao_futuro,
-        av.tempo
-      ]
-      .filter(x => x !== null && x !== undefined)
-      .reduce((a,b)=>a+b,0);
+        av.abertura, av.problema, av.solucao_inovacao, av.mercado,
+        av.equipe, av.concorrencia, av.visao_futuro, av.tempo
+      ].filter(x => x !== null && x !== undefined).reduce((a, b) => a + b, 0);
+      return acc + sub;
+    }, 0);
 
-      // 🔥 PEGA DESCONTO MAIS RECENTE DO GRUPO
-      let desconto = 0;
+    // Total final = soma de todos os jurados − desconto (UMA VEZ)
+    const totalFinal    = Math.max(0, Math.round((somaBruta - desconto) * 10) / 10);
+    const totalFinalFmt = totalFinal.toFixed(1).replace('.', ',');
+    const descontoFmt   = desconto.toFixed(1).replace('.', ',');
+    const somaBrutaFmt  = somaBruta.toString();
+    const maxPossivel   = avs.length * 30;
 
-      const descontosGrupo = descontos
-        ?.filter(d => d.grupo_id === av.grupo_id)
-        ?.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-
-      if (descontosGrupo && descontosGrupo.length > 0) {
-        desconto = parseFloat(descontosGrupo[0].desconto);
-      }
-
-      const notaReal = Math.max(0, Math.round((sub - desconto) * 10) / 10);
-      return notaReal;
-    });
-
-    const media = notas.length > 0 ? (notas.reduce((a,b)=>a+b,0)/notas.length) : 0;
-    const mediaFmt = media.toFixed(1).replace('.',',');
-
+    // Linha por jurado (nota bruta individual)
     const linhasAvs = avs.map(av => {
       const nomeAv = av.Avaliadores ? av.Avaliadores.nome : `Avaliador #${av.avaliador_id}`;
-
       const sub = [
-        av.abertura,
-        av.problema,
-        av.solucao_inovacao,
-        av.mercado,
-        av.equipe,
-        av.concorrencia,
-        av.visao_futuro,
-        av.tempo
-      ]
-      .filter(x => x !== null && x !== undefined)
-      .reduce((a,b)=>a+b,0);
-
-      let desconto = 0;
-
-      const descontosGrupo = descontos
-        ?.filter(d => d.grupo_id === av.grupo_id)
-        ?.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-
-      if (descontosGrupo && descontosGrupo.length > 0) {
-        desconto = parseFloat(descontosGrupo[0].desconto);
-      }
-
-      const notaReal = Math.max(0, Math.round((sub - desconto) * 10) / 10);
-
-      const nf = notaReal.toFixed(1).replace('.',',');
-      const descValor = desconto.toFixed(1).replace('.',',');
+        av.abertura, av.problema, av.solucao_inovacao, av.mercado,
+        av.equipe, av.concorrencia, av.visao_futuro, av.tempo
+      ].filter(x => x !== null && x !== undefined).reduce((a, b) => a + b, 0);
 
       return `
         <div style="padding:10px 14px;border-bottom:1px solid var(--gray-100);font-size:13px">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span style="font-weight:600;color:var(--navy)">${nomeAv}</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--deep)">${nf} pt</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--deep)">${sub} <span style="font-size:12px;color:var(--gray-400);font-family:'Barlow',sans-serif">/ 30</span></span>
           </div>
-          <div class="nota-breakdown">
-            <div class="nota-row"><span>Soma critérios</span><span>${sub} pt</span></div>
-            <div class="nota-row"><span>Desconto tempo</span><span>-${descValor} pt</span></div>
-            <div class="nota-row final"><span>Nota final</span><span>${nf} pt</span></div>
-          </div>
-          ${av.observacoes ? `<div style="font-size:11px;color:var(--gray-400);margin-top:6px;font-style:italic">"${av.observacoes}"</div>` : ''}
+          ${av.observacoes ? `<div style="font-size:11px;color:var(--gray-400);margin-top:4px;font-style:italic">"${av.observacoes}"</div>` : ''}
         </div>`;
     }).join('');
 
@@ -1167,13 +1105,31 @@ async function carregarResultados() {
           <div>
             <div style="font-weight:700;color:var(--white);font-size:14px">${nomeGrupo}</div>
             ${projeto ? `<div style="font-size:11px;color:rgba(255,255,255,0.55)">${projeto}</div>` : ''}
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px">${avs.length} jurado${avs.length !== 1 ? 's' : ''} avaliaram</div>
           </div>
           <div style="text-align:right">
-            <div style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase">Média</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cyan)">${mediaFmt}</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase">Total final</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;color:var(--cyan)">${totalFinalFmt}</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.35)">de ${maxPossivel} possíveis</div>
           </div>
         </div>
+
         ${linhasAvs}
+
+        <div style="background:var(--off-white);border-top:1px solid var(--gray-200);padding:12px 16px;font-size:12px">
+          <div style="display:flex;justify-content:space-between;padding:2px 0;color:var(--gray-600)">
+            <span>Soma de ${avs.length} jurado${avs.length !== 1 ? 's' : ''}</span>
+            <span style="font-weight:600">${somaBrutaFmt} pt</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:2px 0;color:var(--gray-600)">
+            <span>Desconto de tempo</span>
+            <span style="font-weight:600;color:var(--orange-dark)">−${descontoFmt} pt</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0 2px;margin-top:4px;border-top:1px solid var(--gray-200);font-weight:700;color:var(--navy);font-size:13px">
+            <span>Total final do grupo</span>
+            <span>${totalFinalFmt} pt</span>
+          </div>
+        </div>
       </div>`;
   }).join('');
 }
