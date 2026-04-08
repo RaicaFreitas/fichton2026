@@ -1112,8 +1112,8 @@ async function carregarResultados() {
       return notaReal;
     });
 
-    const media = notas.length > 0 ? (notas.reduce((a,b)=>a+b,0)/notas.length) : 0;
-    const mediaFmt = media.toFixed(1).replace('.',',');
+    const total = notas.reduce((a,b)=>a+b,0);
+    const totalFmt = total.toFixed(1).replace('.',',');
 
     const linhasAvs = avs.map(av => {
       const nomeAv = av.Avaliadores ? av.Avaliadores.nome : `Avaliador #${av.avaliador_id}`;
@@ -1169,8 +1169,10 @@ async function carregarResultados() {
             ${projeto ? `<div style="font-size:11px;color:rgba(255,255,255,0.55)">${projeto}</div>` : ''}
           </div>
           <div style="text-align:right">
-            <div style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase">Média</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cyan)">${mediaFmt}</div>
+           <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cyan)">
+  ${totalFmt}
+</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cyan)">${total.toFixed(1).replace('.',',')}</div>
           </div>
         </div>
         ${linhasAvs}
