@@ -878,7 +878,9 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
   const btn = document.getElementById('btn-submit');
   btn.disabled = true; btn.textContent = 'Enviando...';
 
-  const { error } = await supabaseClient.from('avaliacoes').insert(payload);
+  const { error } = await supabaseClient
+  .from('avaliacoes')
+  .upsert(payload, { onConflict: 'avaliador_id,grupo_id' });
 
   if (error) {
     showToast('Erro: ' + error.message, 'error');
