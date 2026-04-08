@@ -1044,7 +1044,6 @@ async function carregarResultados() {
   if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
 
   const gidFiltro = document.getElementById('res-grupo').value;
-
   let query = supabaseClient
     .from('avaliacoes')
     .select('*, Avaliadores(nome), grupos(nome_grupo, projeto)')
@@ -1060,19 +1059,12 @@ async function carregarResultados() {
     el.innerHTML = `<div style="color:var(--error);font-size:13px;padding:16px">Erro: ${error.message}</div>`;
     return;
   }
-
   if (!data || data.length === 0) {
     el.innerHTML = '<div style="color:var(--gray-400);font-size:13px;text-align:center;padding:30px">Nenhuma avaliação encontrada.</div>';
     return;
   }
 
-  // 🔥 BUSCAR TODOS OS DESCONTOS
-  const { data: descontos } = await supabaseClient
-    .from('descontos_tempo')
-    .select('grupo_id, desconto, created_at');
-
   const porGrupo = {};
-
   data.forEach(av => {
     const gid = av.grupo_id;
     if (!porGrupo[gid]) porGrupo[gid] = { grupo: av.grupos, avs: [] };
@@ -1082,70 +1074,17 @@ async function carregarResultados() {
   el.innerHTML = Object.values(porGrupo).map(({ grupo, avs }) => {
     const nomeGrupo = grupo ? grupo.nome_grupo : 'Grupo';
     const projeto = grupo ? grupo.projeto : '';
-
-    const notas = avs.map(av => {
-      const sub = [
-        av.abertura,
-        av.problema,
-        av.solucao_inovacao,
-        av.mercado,
-        av.equipe,
-        av.concorrencia,
-        av.visao_futuro,
-        av.tempo
-      ]
-      .filter(x => x !== null && x !== undefined)
-      .reduce((a,b)=>a+b,0);
-
-      // 🔥 PEGA DESCONTO MAIS RECENTE DO GRUPO
-      let desconto = 0;
-
-      const descontosGrupo = descontos
-        ?.filter(d => d.grupo_id === av.grupo_id)
-        ?.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-
-      if (descontosGrupo && descontosGrupo.length > 0) {
-        desconto = parseFloat(descontosGrupo[0].desconto);
-      }
-
-      const notaReal = Math.max(0, Math.round((sub - desconto) * 10) / 10);
-      return notaReal;
-    });
-
-    const total = notas.reduce((a,b)=>a+b,0);
-    const totalFmt = total.toFixed(1).replace('.',',');
+    const notas = avs.map(a => parseFloat(a.nota_final));
+    const media = notas.length > 0 ? (notas.reduce((a,b)=>a+b,0)/notas.length) : 0;
+    const mediaFmt = media.toFixed(1).replace('.',',');
 
     const linhasAvs = avs.map(av => {
       const nomeAv = av.Avaliadores ? av.Avaliadores.nome : `Avaliador #${av.avaliador_id}`;
-
-      const sub = [
-        av.abertura,
-        av.problema,
-        av.solucao_inovacao,
-        av.mercado,
-        av.equipe,
-        av.concorrencia,
-        av.visao_futuro,
-        av.tempo
-      ]
-      .filter(x => x !== null && x !== undefined)
-      .reduce((a,b)=>a+b,0);
-
-      let desconto = 0;
-
-      const descontosGrupo = descontos
-        ?.filter(d => d.grupo_id === av.grupo_id)
-        ?.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-
-      if (descontosGrupo && descontosGrupo.length > 0) {
-        desconto = parseFloat(descontosGrupo[0].desconto);
-      }
-
-      const notaReal = Math.max(0, Math.round((sub - desconto) * 10) / 10);
-
-      const nf = notaReal.toFixed(1).replace('.',',');
-      const descValor = desconto.toFixed(1).replace('.',',');
-
+      const sub = [av.abertura,av.problema,av.solucao_inovacao,av.mercado,av.equipe,av.concorrencia,av.visao_futuro,av.tempo]
+        .filter(x => x !== null && x !== undefined)
+        .reduce((a,b)=>a+b,0);
+      const nf = parseFloat(av.nota_final).toFixed(1).replace('.',',');
+      const descValor = (sub - parseFloat(av.nota_final)).toFixed(1).replace('.',',');
       return `
         <div style="padding:10px 14px;border-bottom:1px solid var(--gray-100);font-size:13px">
           <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1169,10 +1108,8 @@ async function carregarResultados() {
             ${projeto ? `<div style="font-size:11px;color:rgba(255,255,255,0.55)">${projeto}</div>` : ''}
           </div>
           <div style="text-align:right">
-           <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cyan)">
-  ${totalFmt}
-</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cyan)">${total.toFixed(1).replace('.',',')}</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase">Média</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cyan)">${mediaFmt}</div>
           </div>
         </div>
         ${linhasAvs}
