@@ -574,7 +574,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
     <button class="btn-primary" id="btn-submit" disabled>Enviar Avaliação</button>
   </div>
 
-  <!-- ══ ABA COORDENAÇÃO ══ -->
+  <!--  ABA COORDENAÇÃO  -->
   <div class="tab-panel" id="tab-coordenacao">
 
     <div class="info-box">
@@ -658,7 +658,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.5}
 <div id="toast"></div>
 
 <script>
-// ─── DADOS ────────────────────────────────────────────────────────────────────
+// DADOS 
 const CRITERIOS = [
   { key:'abertura',         label:'1. Abertura',          desc:'A abertura foi impactante?',                                                        min:1, max:3 },
   { key:'problema',         label:'2. Problema',           desc:'O problema foi descrito de forma clara e objetiva?',                                  min:1, max:5 },
@@ -672,7 +672,7 @@ const CRITERIOS = [
   { key:'tempo',            label:'8. Tempo',              desc:'A proposta foi apresentada em até 5 minutos?',                                       min:1, max:3 },
 ];
 
-// ─── STATE ───────────────────────────────────────────────────────────────────
+//  STATE
 let supabaseClient = null;
 let scores = {};
 let grupos = [];
@@ -680,7 +680,7 @@ let avaliadores = [];
 let descontoAtual = { grupo_id: null, valor: 0 };
 let intervalosDesconto = 0;
 
-// ─── SUPABASE CONFIG ─────────────────────────────────────────────────────────
+// SUPABASE CONFIG 
 document.getElementById('btn-config').addEventListener('click', () => {
   document.getElementById('config-overlay').style.display = 'flex';
 });
@@ -702,7 +702,7 @@ async function initSupabase(url, key) {
   showToast('Conectado ao Supabase!', 'success');
 }
 
-// ─── CARREGAR DADOS ───────────────────────────────────────────────────────────
+// CARREGAR DADOS
 async function loadData() {
   if (!supabaseClient) return;
   const { data: avs } = await supabaseClient
@@ -744,7 +744,7 @@ function renderGruposSelects() {
   });
 }
 
-// ─── CRITÉRIOS ────────────────────────────────────────────────────────────────
+//  CRITÉRIOS 
 function renderCriteria() {
   const list = document.getElementById('criteria-list');
   list.innerHTML = '';
@@ -808,7 +808,7 @@ function updateTotal() {
   checkSubmitReady();
 }
 
-// ─── DESCONTO DO GRUPO SELECIONADO (aba avaliação - só informativo) ──────────
+//  DESCONTO DO GRUPO SELECIONADO (aba avaliação - só informativo)
 document.getElementById('sel-grupo').addEventListener('change', async () => {
   checkSubmitReady();
   await buscarDescontoGrupo();
@@ -848,7 +848,7 @@ function checkSubmitReady() {
   document.getElementById('btn-submit').disabled = !(all && av && gp);
 }
 
-// ─── SUBMIT AVALIAÇÃO ─────────────────────────────────────────────────────────
+// SUBMIT AVALIAÇÃO
 document.getElementById('btn-submit').addEventListener('click', async () => {
   if (!supabaseClient) return showToast('Configure o Supabase primeiro.', 'error');
 
@@ -904,7 +904,7 @@ function resetForm() {
   updateTotal();
 }
 
-// ─── STEPPER DE INTERVALOS (aba coordenação) ─────────────────────────────────
+// STEPPER DE INTERVALOS (aba coordenação)
 function alterarIntervalos(delta) {
   intervalosDesconto = Math.max(0, intervalosDesconto + delta);
   document.getElementById('stepper-val').textContent = intervalosDesconto;
